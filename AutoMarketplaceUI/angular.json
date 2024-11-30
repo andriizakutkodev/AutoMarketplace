@@ -32,7 +32,6 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/magenta-violet.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -93,28 +92,15 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/magenta-violet.css",
               "src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "052f5852-70bd-4bfb-b568-c4f816b14788",
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "analytics": "052f5852-70bd-4bfb-b568-c4f816b14788"
   }
 }
