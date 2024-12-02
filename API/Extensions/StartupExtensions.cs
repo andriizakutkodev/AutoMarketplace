@@ -1,7 +1,8 @@
 ﻿namespace API.Extensions;
 
-using Application.Dependencies;
 using Infrastructure.Data;
+using Infrastructure.Dependencies;
+
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
