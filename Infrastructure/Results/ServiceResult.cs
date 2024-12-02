@@ -15,7 +15,7 @@ public class ServiceResult
     /// <summary>
     /// Gets or sets the HTTP status code associated with the service result.
     /// </summary>
-    public int StatusCode { get; set; }
+    public HttpStatusCode StatusCode { get; set; }
 
     /// <summary>
     /// Gets or sets a message providing additional details about the service result.
@@ -29,7 +29,7 @@ public class ServiceResult
     public static ServiceResult Success() => new ()
     {
         IsSuccess = true,
-        StatusCode = (int)HttpStatusCode.OK,
+        StatusCode = HttpStatusCode.OK,
     };
 
     /// <summary>
@@ -38,7 +38,7 @@ public class ServiceResult
     /// <param name="message">The error message describing the failure.</param>
     /// <param name="statusCode">The HTTP status code representing the failure.</param>
     /// <returns>A <see cref="ServiceResult"/> indicating a failed operation.</returns>
-    public static ServiceResult Failure(string message, int statusCode) => new ()
+    public static ServiceResult Failure(string message, HttpStatusCode statusCode) => new ()
     {
         IsSuccess = false,
         StatusCode = statusCode,

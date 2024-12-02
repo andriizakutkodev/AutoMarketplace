@@ -1,7 +1,7 @@
 namespace API;
 
 using API.Extensions;
-
+using Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 
 /// <summary>
@@ -17,18 +17,17 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         builder.Services.AddControllers();
 
         builder.Services.RegisterDbContext(builder.Configuration);
         builder.Services.RegisterDependencies();
 
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
+
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi("/swagger/v1/swagger.json");

@@ -193,6 +193,7 @@ csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental
 dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.SA1206.severity = suggestion
 dotnet_diagnostic.SA1009.severity = none
+dotnet_diagnostic.SA1101.severity = none
 
 #### Naming styles ####
 [*.{cs,vb}]

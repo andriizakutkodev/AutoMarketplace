@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
 /// This method simplifies the process of loading application-specific dependencies.
 /// </summary>
-public static class StartupExtensions
+public static class ProgramExtensions
 {
     /// <summary>
     /// Registers application dependencies by calling the <see cref="Dependencies.Load"/> method.
