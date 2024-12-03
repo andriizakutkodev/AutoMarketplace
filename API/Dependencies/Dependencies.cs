@@ -1,7 +1,8 @@
-﻿namespace Infrastructure.Dependencies;
+﻿namespace API.Dependencies;
 
 using Application.Interfaces;
 using Application.Services;
+using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Interfaces;
 using Persistence.Repositories;
@@ -21,7 +22,8 @@ public static class Dependencies
     {
         services.AddScoped<IPostsService, PostsService>();
 
-        services.AddScoped<IPostsRepository, PostsRepository>();
-        services.AddScoped<IVehiclesRepository, VehiclesRepository>();
+        services.AddScoped<IGenericRepository<Post>, PostsRepository>();
+        services.AddScoped<IGenericRepository<Vehicle>, VehiclesRepository>();
+        services.AddScoped<IGenericRepository<User>, UsersRepository>();
     }
 }

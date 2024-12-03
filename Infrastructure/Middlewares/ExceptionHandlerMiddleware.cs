@@ -1,7 +1,7 @@
 ﻿namespace Infrastructure.Middlewares;
 
-using Infrastructure.Results;
 using Microsoft.AspNetCore.Http;
+using Infrastructure.Results;
 using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;

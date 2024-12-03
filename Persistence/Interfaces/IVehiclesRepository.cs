@@ -1,9 +1,11 @@
 ﻿namespace Persistence.Interfaces;
 
+using Domain.Entities;
+
 /// <summary>
-/// Provides an abstraction for managing vehicle data in the data store.
-/// Defines methods for adding, retrieving, updating, and deleting vehicle records.
+/// Represents a repository interface for managing <see cref="Vehicle"/> entities.
+/// Extends the generic repository interface with methods specific to <see cref="Vehicle"/>.
 /// </summary>
-public interface IVehiclesRepository
+public interface IVehiclesRepository : IGenericRepository<Vehicle>
 {
 }

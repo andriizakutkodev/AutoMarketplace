@@ -1,9 +1,11 @@
 ﻿namespace Persistence.Interfaces;
 
+using Domain.Entities;
+
 /// <summary>
-/// Provides an abstraction for managing posts in the data store.
-/// Defines methods for creating, retrieving, updating, and deleting posts.
+/// Represents a repository interface for managing <see cref="Post"/> entities.
+/// Extends the generic repository interface with methods specific to <see cref="Post"/>.
 /// </summary>
-public interface IPostsRepository
+public interface IPostsRepository : IGenericRepository<Post>
 {
 }

@@ -1,9 +1,8 @@
 ﻿namespace API.Extensions;
 
 using Infrastructure.Data;
-using Infrastructure.Dependencies;
-
 using Microsoft.EntityFrameworkCore;
+using API.Dependencies;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.

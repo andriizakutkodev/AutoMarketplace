@@ -16,10 +16,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> ops)
     /// <summary>
     /// Gets or sets the db set of vechiles.
     /// </summary>
-    public DbSet<Vehicle>? Vehicles { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
 
     /// <summary>
     /// Gets or sets the db set of posts.
     /// </summary>
-    public DbSet<Post>? Posts { get; set; }
+    public DbSet<Post> Posts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the db set of users.
+    /// </summary>
+    public DbSet<User> Users { get; set; }
 }
