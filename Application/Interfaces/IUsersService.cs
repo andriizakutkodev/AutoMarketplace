@@ -1,26 +1,28 @@
 ﻿namespace Application.Interfaces;
 
-using Application.DTOs.Requests;
-using Application.DTOs.Responses;
-
+using Domain.Entities;
 using Infrastructure.Results;
 
 /// <summary>
-/// Represents a service interface for user authentication and management operations.
+/// Defines the contract for a service responsible for user-related operations such as retrieving and creating users.
 /// </summary>
 public interface IUsersService
 {
     /// <summary>
-    /// Authenticates a user and returns user information if the login is successful.
+    /// Retrieves a user by their email address.
     /// </summary>
-    /// <param name="loginDto">The login details (email and password) for the user.</param>
-    /// <returns>A <see cref="ServiceResult{UserInfoDto}"/> containing the user's information if login is successful, or an error message if not.</returns>
-    Task<ServiceResult<UserInfoDto>> Login(LoginDto loginDto);
+    /// <param name="email">The email address of the user to retrieve.</param>
+    /// <returns>
+    /// A <see cref="Result{T}"/> containing the user if found, or an error result if no user exists with the given email.
+    /// </returns>
+    Task<Result<User>> GetByEmail(string email);
 
     /// <summary>
-    /// Registers a new user and returns user information upon successful registration.
+    /// Creates a new user.
     /// </summary>
-    /// <param name="registerDto">The registration details (email, name, etc.) for the new user.</param>
-    /// <returns>A <see cref="ServiceResult{UserInfoDto}"/> containing the user's information if registration is successful, or an error message if not.</returns>
-    Task<ServiceResult<UserInfoDto>> Register(RegisterDto registerDto);
+    /// <param name="user">The user object containing the details of the new user.</param>
+    /// <returns>
+    /// A <see cref="Result"/> indicating the success or failure of the user creation process.
+    /// </returns>
+    Task<Result> Create(User user);
 }

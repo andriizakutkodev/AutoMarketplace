@@ -3,14 +3,20 @@
 using System.Net;
 
 /// <summary>
-/// Represents the result of a service operation.
+/// Represents a generic result for a service operation.
 /// </summary>
-public class ServiceResult
+/// <typeparam name="T">The type of the data returned by the service.</typeparam>
+public class Result<T>
 {
     /// <summary>
     /// Gets or sets a value indicating whether the service operation was successful.
     /// </summary>
     public bool IsSuccess { get; set; }
+
+    /// <summary>
+    /// Gets or sets the data returned by the service operation.
+    /// </summary>
+    public T Data { get; set; }
 
     /// <summary>
     /// Gets or sets the HTTP status code associated with the service result.
@@ -23,12 +29,14 @@ public class ServiceResult
     public string Message { get; set; }
 
     /// <summary>
-    /// Creates a successful service result with a default status code of 200 (OK).
+    /// Creates a successful service result with the specified data.
     /// </summary>
-    /// <returns>A <see cref="ServiceResult"/> indicating a successful operation.</returns>
-    public static ServiceResult Success() => new ()
+    /// <param name="data">The data to include in the service result.</param>
+    /// <returns>A <see cref="Result{T}"/> indicating a successful operation.</returns>
+    public static Result<T> Success(T data) => new ()
     {
         IsSuccess = true,
+        Data = data,
         StatusCode = HttpStatusCode.OK,
     };
 
@@ -37,11 +45,11 @@ public class ServiceResult
     /// </summary>
     /// <param name="message">The error message describing the failure.</param>
     /// <param name="statusCode">The HTTP status code representing the failure.</param>
-    /// <returns>A <see cref="ServiceResult"/> indicating a failed operation.</returns>
-    public static ServiceResult Failure(string message, HttpStatusCode statusCode) => new ()
+    /// <returns>A <see cref="Result{T}"/> indicating a failed operation.</returns>
+    public static Result<T> Failure(HttpStatusCode statusCode, string message) => new ()
     {
         IsSuccess = false,
-        StatusCode = statusCode,
         Message = message,
+        StatusCode = statusCode,
     };
 }

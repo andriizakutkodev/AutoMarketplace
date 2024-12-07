@@ -19,8 +19,7 @@ public class Program
 
         builder.Services.AddControllers();
 
-        builder.Services.RegisterDbContext(builder.Configuration);
-        builder.Services.RegisterDependencies();
+        builder.Services.RegisterDependencies(builder.Configuration);
 
         builder.Services.AddOpenApi();
 

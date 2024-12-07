@@ -2,7 +2,15 @@
 
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using API.Dependencies;
+using API.Validators;
+using Application.DTOs.Requests;
+using Application.Interfaces;
+using Application.Services;
+using Domain.Entities;
+using FluentValidation;
+using Persistence.Interfaces;
+using Persistence.Repositories;
+using Application.Options;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -11,21 +19,20 @@ using API.Dependencies;
 public static class ProgramExtensions
 {
     /// <summary>
-    /// Registers application dependencies by calling the <see cref="Dependencies.Load"/> method.
+    /// Registers application dependencies.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to register dependencies with.</param>
-    public static void RegisterDependencies(this IServiceCollection services)
+    /// <param name="configuration">The <see cref="IConfiguration"/> to get access to config.</param>
+    public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
     {
-        Dependencies.Load(services);
+        RegisterDbContext(services, configuration);
+        RegisterServices(services);
+        RegisterRepositories(services);
+        RegisterValidators(services);
+        RegisterOptions(services, configuration);
     }
 
-    /// <summary>
-    /// Registers the <see cref="AppDbContext"/> with the dependency injection container.
-    /// Configures the context to use PostgreSQL with the connection string from the configuration.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to register the <see cref="AppDbContext"/> with.</param>
-    /// <param name="configuration">The <see cref="IConfiguration"/> containing the connection string for the database.</param>
-    public static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
+    private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(opt =>
         {
@@ -34,5 +41,32 @@ public static class ProgramExtensions
                 b.MigrationsAssembly(typeof(AppDbContext).Assembly);
             });
         });
+    }
+
+    private static void RegisterServices(IServiceCollection services)
+    {
+        services.AddScoped<IPostsService, PostsService>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUsersService, UsersService>();
+        services.AddSingleton<IPasswordHandlerService, PasswordHandlerService>();
+        services.AddSingleton<IJwtService, JwtService>();
+    }
+
+    private static void RegisterRepositories(IServiceCollection services)
+    {
+        services.AddScoped<IGenericRepository<Post>, PostsRepository>();
+        services.AddScoped<IGenericRepository<Vehicle>, VehiclesRepository>();
+        services.AddScoped<IGenericRepository<User>, UsersRepository>();
+    }
+
+    private static void RegisterValidators(IServiceCollection services)
+    {
+        services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
+        services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
+    }
+
+    private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
     }
 }

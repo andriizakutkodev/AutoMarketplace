@@ -8,6 +8,6 @@ using Persistence.Interfaces;
 /// Implements the <see cref="IVehiclesRepository"/> interface to manage vehicle data in the data store.
 /// Provides functionality for adding, retrieving, updating, and deleting vehicle records.
 /// </summary>
-public class VehiclesRepository(AppDbContext context) : GenericRepository<Vehicle>(context)
+public class VehiclesRepository(AppDbContext context) : GenericRepository<Vehicle>(context), IVehiclesRepository
 {
 }

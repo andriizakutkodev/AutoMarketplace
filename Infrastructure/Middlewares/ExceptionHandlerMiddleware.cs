@@ -63,7 +63,7 @@ public class ExceptionHandlerMiddleware
 
         _logger.LogError(exception, "An unhandled exception occurred.");
 
-        var errorResult = new ServiceResult
+        var errorResult = new Result
         {
             IsSuccess = false,
             StatusCode = (HttpStatusCode)response.StatusCode,
