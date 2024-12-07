@@ -11,6 +11,9 @@ using FluentValidation;
 using Persistence.Interfaces;
 using Persistence.Repositories;
 using Application.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -30,6 +33,7 @@ public static class ProgramExtensions
         RegisterRepositories(services);
         RegisterValidators(services);
         RegisterOptions(services, configuration);
+        RegisterAuthentication(services, configuration);
     }
 
     private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -69,5 +73,30 @@ public static class ProgramExtensions
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
+    }
+
+    private static void RegisterAuthentication(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = true;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero,
+                ValidIssuer = configuration["Jwt:Issuer"],
+                ValidAudience = configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"] !)),
+            };
+        });
     }
 }
