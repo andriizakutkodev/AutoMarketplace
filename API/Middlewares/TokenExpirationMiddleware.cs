@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Middlewares;
+﻿namespace API.Middlewares;
 
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Http;

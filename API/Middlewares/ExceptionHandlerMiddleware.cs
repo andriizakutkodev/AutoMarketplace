@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Middlewares;
+﻿namespace API.Middlewares;
 
 using Microsoft.AspNetCore.Http;
 using Infrastructure.Results;

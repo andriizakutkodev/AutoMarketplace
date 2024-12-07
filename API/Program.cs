@@ -1,7 +1,7 @@
 namespace API;
 
 using API.Extensions;
-using Infrastructure.Middlewares;
+using API.Middlewares;
 using Microsoft.AspNetCore.Builder;
 
 /// <summary>
@@ -26,6 +26,7 @@ public class Program
         var app = builder.Build();
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
+        app.UseMiddleware<TokenExpirationMiddleware>();
 
         if (app.Environment.IsDevelopment())
         {
