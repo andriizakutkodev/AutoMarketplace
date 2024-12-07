@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs;
+﻿namespace Application.DTOs.Requests;
 
 /// <summary>
 /// Represents the data transfer object (DTO) for user registration information.
