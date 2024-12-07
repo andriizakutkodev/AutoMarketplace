@@ -65,8 +65,8 @@ public class AuthService(
             Password = hashPasswordResult.Data,
             Salt = salt,
             ImgUrl = registerDto.ImgUrl,
-            CreatedAt = DateTimeOffset.Now,
-            UpdatedAt = DateTimeOffset.Now,
+            CreatedAt = DateTimeOffset.UtcNow,
+            UpdatedAt = DateTimeOffset.UtcNow,
         };
 
         var createUserResult = await usersService.Create(user);

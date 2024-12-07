@@ -50,13 +50,14 @@ public static class ProgramExtensions
         services.AddScoped<IUsersService, UsersService>();
         services.AddSingleton<IPasswordHandlerService, PasswordHandlerService>();
         services.AddSingleton<IJwtService, JwtService>();
+        services.AddScoped<IAuthService, AuthService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
     {
-        services.AddScoped<IGenericRepository<Post>, PostsRepository>();
-        services.AddScoped<IGenericRepository<Vehicle>, VehiclesRepository>();
-        services.AddScoped<IGenericRepository<User>, UsersRepository>();
+        services.AddScoped<IPostsRepository, PostsRepository>();
+        services.AddScoped<IVehiclesRepository, VehiclesRepository>();
+        services.AddScoped<IUsersRepository, UsersRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)
