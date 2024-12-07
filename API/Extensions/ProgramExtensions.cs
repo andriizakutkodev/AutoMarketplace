@@ -14,6 +14,7 @@ using Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -34,6 +35,7 @@ public static class ProgramExtensions
         RegisterValidators(services);
         RegisterOptions(services, configuration);
         RegisterAuthentication(services, configuration);
+        RegisterSwaggerConfiguration(services);
     }
 
     private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -97,6 +99,36 @@ public static class ProgramExtensions
                 ValidAudience = configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"] !)),
             };
+        });
+    }
+
+    private static void RegisterSwaggerConfiguration(IServiceCollection services)
+    {
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            {
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "Bearer",
+            });
+
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer",
+                        },
+                    },
+                    Array.Empty<string>()
+                },
+            });
         });
     }
 }

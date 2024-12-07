@@ -21,8 +21,6 @@ public class Program
 
         builder.Services.RegisterDependencies(builder.Configuration);
 
-        builder.Services.AddOpenApi();
-
         var app = builder.Build();
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
@@ -30,7 +28,7 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi("/swagger/v1/swagger.json");
+            app.UseSwagger();
             app.UseSwaggerUI();
         }
 
