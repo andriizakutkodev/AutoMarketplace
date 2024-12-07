@@ -30,7 +30,7 @@ public class AuthController(
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto registerDto)
     {
-        var result = registerDtoValidator.Validate(registerDto);
+        var result = await registerDtoValidator.ValidateAsync(registerDto);
 
         if (!result.IsValid)
         {
@@ -53,7 +53,7 @@ public class AuthController(
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
-        var result = loginDtoValidator.Validate(loginDto);
+        var result = await loginDtoValidator.ValidateAsync(loginDto);
 
         if (!result.IsValid)
         {
