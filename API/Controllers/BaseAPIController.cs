@@ -53,8 +53,14 @@ public class BaseAPIController : ControllerBase
     /// <remarks>
     /// This method formats the validation errors into a result object that can be returned as part of the response.
     /// </remarks>
-    protected Result CreateModelNotValidResult(List<ValidationFailure> errors)
+    protected Result<List<ValidationFailure>> CreateModelNotValidResult(List<ValidationFailure> errors)
     {
-        return new() { IsSuccess = false, StatusCode = HttpStatusCode.BadRequest, Message = errors.ToString()! };
+        return new Result<List<ValidationFailure>>()
+        {
+            IsSuccess = false,
+            Data = errors,
+            StatusCode = HttpStatusCode.BadRequest,
+            Message = string.Empty,
+        };
     }
 }
