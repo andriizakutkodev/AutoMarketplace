@@ -1,9 +1,7 @@
 ﻿namespace API.Controllers;
 
 using System.Net;
-
 using FluentValidation.Results;
-
 using Infrastructure.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 /// Base controller providing common result handling for API responses.
 /// </summary>
 [ApiController]
+[Route("api/[controller]")]
 public class BaseAPIController : ControllerBase
 {
     /// <summary>
