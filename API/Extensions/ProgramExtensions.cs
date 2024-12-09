@@ -36,6 +36,7 @@ public static class ProgramExtensions
         RegisterOptions(services, configuration);
         RegisterAuthentication(services, configuration);
         RegisterSwaggerConfiguration(services);
+        RegisterCors(services);
     }
 
     private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -128,6 +129,19 @@ public static class ProgramExtensions
                     },
                     Array.Empty<string>()
                 },
+            });
+        });
+    }
+
+    private static void RegisterCors(IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200");
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
             });
         });
     }
