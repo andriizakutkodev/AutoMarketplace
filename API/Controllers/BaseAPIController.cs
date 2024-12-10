@@ -72,8 +72,8 @@ public class BaseAPIController : ControllerBase
     {
         var groupedErrors = errors
            .GroupBy(x => x.PropertyName)
-           .Select(group => $"{group.Key}: {string.Join(", ", group.Select(e => e.ErrorMessage))}");
+           .Select(group => $"{group.Key} validation errors: [ {string.Join(" ", group.Select(e => e.ErrorMessage))} ]");
 
-        return string.Join(" | ", groupedErrors);
+        return string.Join("//", groupedErrors);
     }
 }
