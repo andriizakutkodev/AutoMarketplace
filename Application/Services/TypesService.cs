@@ -86,11 +86,15 @@ public class TypesService<TRepository, TEntity> : ITypesService
     /// </returns>
     public virtual async Task<Result> Create(CreateTypeDto createTypeDto)
     {
-        var typeToCreate = new GenericType
+        var typeToCreate = Activator.CreateInstance(typeof(TEntity)) as GenericType;
+
+        if (typeToCreate == null)
         {
-            Id = Guid.NewGuid(),
-            Name = createTypeDto.Name,
-        };
+            return Result.Failure(HttpStatusCode.BadRequest, $"Unable to create instance of {typeof(TEntity).Name}");
+        }
+
+        typeToCreate.Id = Guid.NewGuid();
+        typeToCreate.Name = createTypeDto.Name;
 
         var isCreated = await _repository.Create((TEntity)typeToCreate);
 
