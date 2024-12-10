@@ -86,6 +86,7 @@ public static class ProgramExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEngineTypesService, EngineTypesService>();
         services.AddScoped<IFuelTypesService, FuelTypesService>();
+        services.AddScoped<IVehicleTypesService, VehicleTypesService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
@@ -94,6 +95,7 @@ public static class ProgramExtensions
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IEngineTypesRepository, EngineTypesRepository>();
         services.AddScoped<IFuelTypesRepository, FuelTypesRepository>();
+        services.AddScoped<IVehicleTypesRepository, VechicleTypesRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)

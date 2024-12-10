@@ -68,6 +68,11 @@ public class GenericTypesService<TRepository, TEntity> : IGenericTypesService
     {
         var type = await _repository.GetById(id);
 
+        if (type == null)
+        {
+            return Result<TypeDto>.Failure(HttpStatusCode.NotFound, "The type was not found.");
+        }
+
         var typeDto = new TypeDto
         {
             Id = type.Id,
@@ -140,7 +145,7 @@ public class GenericTypesService<TRepository, TEntity> : IGenericTypesService
 
         if (typeToDelete == null)
         {
-            return Result.Failure(HttpStatusCode.BadGateway, "Type was not found to delete.");
+            return Result.Failure(HttpStatusCode.BadRequest, "Type was not found to delete.");
         }
 
         var isDeleted = await _repository.Delete(typeToDelete);
