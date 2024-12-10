@@ -22,6 +22,31 @@ using Application.DTOs.Requests;
 public static class ProgramExtensions
 {
     /// <summary>
+    /// The connection string key value.
+    /// </summary>
+    public const string CONNECTIONSTRINGKEY = "Default";
+
+    /// <summary>
+    /// The jwt section key value.
+    /// </summary>
+    public const string JWTSECTIONKEY = "Jwt";
+
+    /// <summary>
+    /// The jwt audience key value.
+    /// </summary>
+    public const string JWTAUDIENCEKEY = "Jwt:Audience";
+
+    /// <summary>
+    /// The jwt issuer key value.
+    /// </summary>
+    public const string JWTISSUERKEY = "Jwt:Issuer";
+
+    /// <summary>
+    /// The jwt secret key value.
+    /// </summary>
+    public const string JWTSECRETKEY = "Jwt:SecretKey";
+
+    /// <summary>
     /// Registers application dependencies.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to register dependencies with.</param>
@@ -42,7 +67,7 @@ public static class ProgramExtensions
     {
         services.AddDbContext<AppDbContext>(opt =>
         {
-            opt.UseNpgsql(configuration.GetConnectionString("Default"), b =>
+            opt.UseNpgsql(configuration.GetConnectionString(CONNECTIONSTRINGKEY), b =>
             {
                 b.MigrationsAssembly(typeof(AppDbContext).Assembly);
             });
@@ -58,6 +83,7 @@ public static class ProgramExtensions
         services.AddSingleton<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEngineTypesService, EngineTypesService>();
+        services.AddScoped<IFuelTypesService, FuelTypesService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
@@ -65,6 +91,7 @@ public static class ProgramExtensions
         services.AddScoped<IPostsRepository, PostsRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IEngineTypesRepository, EngineTypesRepository>();
+        services.AddScoped<IFuelTypesRepository, FuelTypesRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)
@@ -73,11 +100,13 @@ public static class ProgramExtensions
         services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
         services.AddScoped<IValidator<CreateEngineTypeDto>, CreateEngineTypeDtoValidator>();
         services.AddScoped<IValidator<UpdateEngineTypeDto>, UpdateEngineTypeDtoValidator>();
+        services.AddScoped<IValidator<CreateFuelTypeDto>, CreateFuelTypeDtoValidator>();
+        services.AddScoped<IValidator<UpdateFuelTypeDto>, UpdateFuelTypeDtoValidator>();
     }
 
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
+        services.Configure<JwtOptions>(configuration.GetSection(JWTSECTIONKEY));
     }
 
     private static void RegisterAuthentication(IServiceCollection services, IConfiguration configuration)
@@ -98,9 +127,9 @@ public static class ProgramExtensions
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 ClockSkew = TimeSpan.Zero,
-                ValidIssuer = configuration["Jwt:Issuer"],
-                ValidAudience = configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"] !)),
+                ValidIssuer = configuration[JWTISSUERKEY],
+                ValidAudience = configuration[JWTAUDIENCEKEY],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration[JWTSECRETKEY] !)),
             };
         });
     }
