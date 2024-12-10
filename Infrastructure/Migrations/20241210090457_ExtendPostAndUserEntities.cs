@@ -185,7 +185,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Vehicles",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -195,7 +195,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Vehicles",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -205,7 +205,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Vehicles",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -215,7 +215,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Vehicles",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -225,7 +225,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Vehicles",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -235,7 +235,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Vehicles",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -245,7 +245,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Users",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -265,7 +265,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Users",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -275,7 +275,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Users",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -285,7 +285,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Users",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -295,7 +295,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Users",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -305,7 +305,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Users",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);
@@ -325,7 +325,7 @@ public partial class ExtendPostAndUserEntities : Migration
             table: "Posts",
             type: "text",
             nullable: false,
-            defaultValue: "",
+            defaultValue: string.Empty,
             oldClrType: typeof(string),
             oldType: "text",
             oldNullable: true);

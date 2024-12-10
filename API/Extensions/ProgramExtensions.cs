@@ -3,10 +3,8 @@
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using API.Validators;
-using Application.DTOs.Requests;
 using Application.Interfaces;
 using Application.Services;
-using Domain.Entities;
 using FluentValidation;
 using Persistence.Interfaces;
 using Persistence.Repositories;
@@ -15,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Application.DTOs.Requests;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -58,18 +57,22 @@ public static class ProgramExtensions
         services.AddSingleton<IPasswordHandlerService, PasswordHandlerService>();
         services.AddSingleton<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IEngineTypesService, EngineTypesService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
     {
         services.AddScoped<IPostsRepository, PostsRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IEngineTypesRepository, EngineTypesRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)
     {
         services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
         services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
+        services.AddScoped<IValidator<CreateEngineTypeDto>, CreateEngineTypeDtoValidator>();
+        services.AddScoped<IValidator<UpdateEngineTypeDto>, UpdateEngineTypeDtoValidator>();
     }
 
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
