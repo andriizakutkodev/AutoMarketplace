@@ -23,7 +23,7 @@ public class EngineTypesController(
     /// <returns>
     /// An HTTP response containing a collection of engine types, or an error if the retrieval fails.
     /// </returns>
-    [HttpGet("enginetypes")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         return HandleResult(await service.GetAll());
@@ -36,7 +36,7 @@ public class EngineTypesController(
     /// <returns>
     /// An HTTP response containing the engine type, or an error if the retrieval fails.
     /// </returns>
-    [HttpGet("enginetypes/{id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
         return HandleResult(await service.GetById(id));
@@ -49,7 +49,7 @@ public class EngineTypesController(
     /// <returns>
     /// An HTTP response indicating whether the engine type creation was successful or not.
     /// </returns>
-    [HttpPost("enginetypes")]
+    [HttpPost]
     public async Task<IActionResult> Create(CreateEngineTypeDto createEngineTypeDto)
     {
         var result = await createEngineTypeValidator.ValidateAsync(createEngineTypeDto);
@@ -69,7 +69,7 @@ public class EngineTypesController(
     /// <returns>
     /// An HTTP response indicating whether the engine type update was successful or not.
     /// </returns>
-    [HttpPut("enginetypes")]
+    [HttpPut]
     public async Task<IActionResult> Update(UpdateEngineTypeDto updateEngineTypeDto)
     {
         var result = await updateEngineTypeValidator.ValidateAsync(updateEngineTypeDto);
@@ -89,7 +89,7 @@ public class EngineTypesController(
     /// <returns>
     /// An HTTP response indicating whether the engine type deletion was successful or not.
     /// </returns>
-    [HttpDelete("enginetypes/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         return HandleResult(await service.Delete(id));
