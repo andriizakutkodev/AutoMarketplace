@@ -98,10 +98,8 @@ public static class ProgramExtensions
     {
         services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
         services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
-        services.AddScoped<IValidator<CreateEngineTypeDto>, CreateEngineTypeDtoValidator>();
-        services.AddScoped<IValidator<UpdateEngineTypeDto>, UpdateEngineTypeDtoValidator>();
-        services.AddScoped<IValidator<CreateFuelTypeDto>, CreateFuelTypeDtoValidator>();
-        services.AddScoped<IValidator<UpdateFuelTypeDto>, UpdateFuelTypeDtoValidator>();
+        services.AddScoped<IValidator<CreateTypeDto>, CreateTypeDtoValidator>();
+        services.AddScoped<IValidator<UpdateTypeDto>, UpdateTypeDtoValidator>();
     }
 
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)

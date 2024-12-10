@@ -3,13 +3,8 @@
 /// <summary>
 /// Represents a type of vehicle.
 /// </summary>
-public class VehicleType : BaseEntity
+public class VehicleType : GenericType
 {
-    /// <summary>
-    /// Gets or sets the name of the vehicle type.
-    /// </summary>
-    public string Name { get; set; }
-
     /// <summary>
     /// Gets or sets the collection of vehicle makes that use this engine type.
     /// </summary>

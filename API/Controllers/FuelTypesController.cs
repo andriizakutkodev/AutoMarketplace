@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 /// Controller for managing fuel types, including retrieving, creating, updating, and deleting fuel types.
 /// </summary>
 /// /// <param name="service">The service for handling fuel type operations.</param>
-/// <param name="createEngineTypeValidator">Validator for creating fuel types.</param>
-/// <param name="updateEngineTypeValidator">Validator for updating fuel types.</param>
+/// <param name="createTypeValidator">Validator for creating fuel types.</param>
+/// <param name="updateTypeValdator">Validator for updating fuel types.</param>
 public class FuelTypesController(
     IFuelTypesService service,
-    IValidator<CreateFuelTypeDto> createFuelTypeValidator,
-    IValidator<UpdateFuelTypeDto> updateFuelTypeValdator)
+    IValidator<CreateTypeDto> createTypeValidator,
+    IValidator<UpdateTypeDto> updateTypeValdator)
     : BaseAPIController
 {
     /// <summary>
@@ -45,41 +45,41 @@ public class FuelTypesController(
     /// <summary>
     /// Creates a new fuel type.
     /// </summary>
-    /// <param name="createFuelTypeDto">The data transfer object containing the details of the fuel type to create.</param>
+    /// <param name="createTypeDto">The data transfer object containing the details of the fuel type to create.</param>
     /// <returns>
     /// An HTTP response indicating whether the fuel type creation was successful or not.
     /// </returns>
     [HttpPost]
-    public async Task<IActionResult> Create(CreateFuelTypeDto createFuelTypeDto)
+    public async Task<IActionResult> Create(CreateTypeDto createTypeDto)
     {
-        var result = await createFuelTypeValidator.ValidateAsync(createFuelTypeDto);
+        var result = await createTypeValidator.ValidateAsync(createTypeDto);
 
         if (!result.IsValid)
         {
             return HandleResult(CreateModelNotValidResult(result.Errors));
         }
 
-        return HandleResult(await service.Create(createFuelTypeDto));
+        return HandleResult(await service.Create(createTypeDto));
     }
 
     /// <summary>
     /// Updates an existing fuel type.
     /// </summary>
-    /// <param name="updateFuelTypeDto">The data transfer object containing the updated details of the fuel type.</param>
+    /// <param name="updateTypeDto">The data transfer object containing the updated details of the fuel type.</param>
     /// <returns>
     /// An HTTP response indicating whether the fuel type update was successful or not.
     /// </returns>
     [HttpPut]
-    public async Task<IActionResult> Update(UpdateFuelTypeDto updateFuelTypeDto)
+    public async Task<IActionResult> Update(UpdateTypeDto updateTypeDto)
     {
-        var result = await updateFuelTypeValdator.ValidateAsync(updateFuelTypeDto);
+        var result = await updateTypeValdator.ValidateAsync(updateTypeDto);
 
         if (!result.IsValid)
         {
             return HandleResult(CreateModelNotValidResult(result.Errors));
         }
 
-        return HandleResult(await service.Update(updateFuelTypeDto));
+        return HandleResult(await service.Update(updateTypeDto));
     }
 
     /// <summary>
