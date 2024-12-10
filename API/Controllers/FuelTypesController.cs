@@ -2,9 +2,7 @@
 
 using Application.DTOs.Requests;
 using Application.Interfaces.Types;
-
 using FluentValidation;
-
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>

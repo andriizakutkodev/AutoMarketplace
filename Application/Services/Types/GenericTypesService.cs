@@ -4,15 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-
 using Application.DTOs.Requests;
 using Application.DTOs.Responses;
 using Application.Interfaces.Types;
-
 using Domain.Entities;
-
 using Infrastructure.Results;
-
 using Persistence.Interfaces;
 
 /// <summary>
@@ -67,6 +63,7 @@ public class GenericTypesService<TRepository, TEntity> : IGenericTypesService
     /// A task that represents the asynchronous operation.
     /// The task result contains a <see cref="Result{T}"/> with the corresponding <see cref="TypeDto"/>.
     /// If the type is not found, it will return a failure result with an appropriate error message.
+    /// </returns>
     public virtual async Task<Result<TypeDto>> GetById(Guid id)
     {
         var type = await _repository.GetById(id);

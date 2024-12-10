@@ -2,7 +2,6 @@
 
 using Application.DTOs.Requests;
 using Application.DTOs.Responses;
-
 using Infrastructure.Results;
 
 /// <summary>

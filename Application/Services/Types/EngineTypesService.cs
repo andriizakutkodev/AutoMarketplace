@@ -1,9 +1,7 @@
 ﻿namespace Application.Services.Types;
 
 using Application.Interfaces.Types;
-
 using Domain.Entities;
-
 using Persistence.Interfaces;
 
 /// <summary>
