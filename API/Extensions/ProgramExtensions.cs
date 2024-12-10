@@ -63,7 +63,6 @@ public static class ProgramExtensions
     private static void RegisterRepositories(IServiceCollection services)
     {
         services.AddScoped<IPostsRepository, PostsRepository>();
-        services.AddScoped<IVehiclesRepository, VehiclesRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
     }
 

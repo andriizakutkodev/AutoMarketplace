@@ -11,6 +11,11 @@ public class Post : BaseEntity
     public int Price { get; set; }
 
     /// <summary>
+    /// Gets or sets the mileage of the vehicle, typically measured in kilometers.
+    /// </summary>
+    public short Mileage { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the post is active.
     /// </summary>
     public bool IsActive { get; set; }
@@ -38,7 +43,7 @@ public class Post : BaseEntity
     /// <summary>
     /// Gets or sets the associated vehicle details for the post.
     /// </summary>
-    public virtual required Vehicle Vehicle { get; set; }
+    public virtual required VehicleModel Vehicle { get; set; }
 
     /// <summary>
     /// Gets or sets the owner for the post.
