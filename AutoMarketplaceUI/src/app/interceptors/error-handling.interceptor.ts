@@ -2,6 +2,7 @@
 import { catchError, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
+import { Router } from '@angular/router';
 
 /**
  * This is an HTTP interceptor that handles error responses from HTTP requests.
@@ -14,9 +15,14 @@ import { NotificationService } from '../services/notification.service';
  */
 export const errorHandlingInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
     const notificationService = inject(NotificationService);
+    const router = inject(Router);
 
     return next(req).pipe(
         catchError((error: HttpErrorResponse) => {
+            if (error.status === 401) {
+                router.navigate(['login']);
+            }
+
             const formattedMessage = error.error.message.replace(/\/\//g, '\n');
             notificationService.error(formattedMessage);
 
