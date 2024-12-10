@@ -58,9 +58,22 @@ public class BaseAPIController : ControllerBase
         return new Result<List<ValidationFailure>>()
         {
             IsSuccess = false,
-            Data = errors,
             StatusCode = HttpStatusCode.BadRequest,
-            Message = string.Empty,
+            Message = GenerateErrorMessageFromList(errors),
         };
+    }
+
+    /// <summary>
+    /// Prepare the error message for validation errors.
+    /// </summary>
+    /// <param name="errors">List of ValidationFailure objects.</param>
+    /// <returns>Prepared error message.</returns>
+    private string GenerateErrorMessageFromList(List<ValidationFailure> errors)
+    {
+        var groupedErrors = errors
+           .GroupBy(x => x.PropertyName)
+           .Select(group => $"{group.Key}: {string.Join(", ", group.Select(e => e.ErrorMessage))}");
+
+        return string.Join(" | ", groupedErrors);
     }
 }
