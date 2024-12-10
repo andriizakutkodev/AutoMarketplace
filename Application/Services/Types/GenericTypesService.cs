@@ -96,7 +96,7 @@ public class GenericTypesService<TRepository, TEntity> : IGenericTypesService
 
         if (typeToCreate == null)
         {
-            return Result.Failure(HttpStatusCode.BadRequest, $"Unable to create instance of {typeof(TEntity).Name}");
+            throw new Exception($"Unable to create instance of {typeof(TEntity).Name}");
         }
 
         typeToCreate.Id = Guid.NewGuid();
