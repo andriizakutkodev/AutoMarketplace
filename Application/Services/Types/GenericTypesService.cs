@@ -1,14 +1,18 @@
-﻿namespace Application.Services;
+﻿namespace Application.Services.Types;
 
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+
 using Application.DTOs.Requests;
 using Application.DTOs.Responses;
-using Application.Interfaces;
+using Application.Interfaces.Types;
+
 using Domain.Entities;
+
 using Infrastructure.Results;
+
 using Persistence.Interfaces;
 
 /// <summary>
@@ -20,17 +24,17 @@ using Persistence.Interfaces;
 /// <typeparam name="TEntity">
 /// The entity type that must inherit from <see cref="GenericType"/>.
 /// </typeparam>
-public class TypesService<TRepository, TEntity> : ITypesService
+public class GenericTypesService<TRepository, TEntity> : IGenericTypesService
     where TRepository : IGenericRepository<TEntity>
     where TEntity : GenericType
 {
     private readonly TRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypesService{TRepository, TEntity}"/> class.
+    /// Initializes a new instance of the <see cref="GenericTypesService{TRepository, TEntity}"/> class.
     /// </summary>
     /// <param name="repository">The repository for accessing type data.</param>
-    public TypesService(TRepository repository)
+    public GenericTypesService(TRepository repository)
     {
         _repository = repository;
     }

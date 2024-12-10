@@ -1,13 +1,15 @@
-﻿namespace Application.Services;
+﻿namespace Application.Services.Types;
 
-using Application.Interfaces;
+using Application.Interfaces.Types;
+
 using Domain.Entities;
+
 using Persistence.Interfaces;
 
 /// <summary>
 /// Represents the service to work with fuel types.
 /// </summary>
-public class FuelTypesService : TypesService<IFuelTypesRepository, FuelType>, IFuelTypesService
+public class FuelTypesService : GenericTypesService<IFuelTypesRepository, FuelType>, IFuelTypesService
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="FuelTypesService"/> class.

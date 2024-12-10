@@ -1,13 +1,15 @@
-﻿namespace Application.Services;
+﻿namespace Application.Services.Types;
 
-using Application.Interfaces;
+using Application.Interfaces.Types;
+
 using Domain.Entities;
+
 using Persistence.Interfaces;
 
 /// <summary>
 /// Represents the service to work with engine types.
 /// </summary>
-public class EngineTypesService : TypesService<IEngineTypesRepository, EngineType>, IEngineTypesService
+public class EngineTypesService : GenericTypesService<IEngineTypesRepository, EngineType>, IEngineTypesService
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="EngineTypesService"/> class.

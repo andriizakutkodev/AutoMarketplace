@@ -1,13 +1,14 @@
-﻿namespace Application.Interfaces;
+﻿namespace Application.Interfaces.Types;
 
 using Application.DTOs.Requests;
 using Application.DTOs.Responses;
+
 using Infrastructure.Results;
 
 /// <summary>
 /// Defines the contract for a service that manages types.
 /// </summary>
-public interface ITypesService
+public interface IGenericTypesService
 {
     /// <summary>
     /// Retrieves all types as a collection of data transfer objects (DTOs).
