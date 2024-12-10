@@ -49,4 +49,9 @@ public class User : BaseEntity
     /// Gets or sets the date and time when the user was last updated.
     /// </summary>
     public DateTimeOffset UpdatedAt { get; set; }
+
+    /// <summary>
+    /// Gets or sets the posts data for the user.
+    /// </summary>
+    public virtual ICollection<Post> Posts { get; set; }
 }

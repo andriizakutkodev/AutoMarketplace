@@ -8,10 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 /// <summary>
 /// Represents the authentication controller responsible for handling user registration and login operations.
 /// </summary>
-/// <remarks>
-/// This controller provides endpoints for user authentication, including registration and login.
-/// It utilizes validators to ensure the incoming DTOs (Data Transfer Objects) are valid before processing.
-/// </remarks>
 public class AuthController(
     IAuthService service,
     IValidator<LoginDto> loginDtoValidator,

@@ -71,6 +71,7 @@ public class PasswordHandlerService : IPasswordHandlerService
         {
             rng.GetBytes(salt);
         }
+
         return salt;
     }
 

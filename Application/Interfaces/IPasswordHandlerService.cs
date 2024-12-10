@@ -13,7 +13,7 @@ public interface IPasswordHandlerService
     /// <param name="password">The plaintext password to be hashed.</param>
     /// <param name="salt">The generated salt used in the password hashing process. The salt is returned as an output parameter.</param>
     /// <returns>
-    /// A <see cref="Result{T}"/> containing the hashed password as a Base64 string if successful, 
+    /// A <see cref="Result{T}"/> containing the hashed password as a Base64 string if successful,
     /// or an error result if the hashing process fails.
     /// </returns>
     Result<string> HashPassword(string password, out byte[] salt);

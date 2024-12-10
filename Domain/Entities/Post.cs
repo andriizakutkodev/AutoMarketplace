@@ -39,4 +39,9 @@ public class Post : BaseEntity
     /// Gets or sets the associated vehicle details for the post.
     /// </summary>
     public virtual required Vehicle Vehicle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the owner for the post.
+    /// </summary>
+    public virtual required User Owner { get; set; }
 }

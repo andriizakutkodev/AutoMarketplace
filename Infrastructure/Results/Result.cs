@@ -35,8 +35,8 @@ public class Result
     /// <summary>
     /// Creates a failed service result with the specified message and status code.
     /// </summary>
+    /// /// <param name="statusCode">The HTTP status code representing the failure.</param>
     /// <param name="message">The error message describing the failure.</param>
-    /// <param name="statusCode">The HTTP status code representing the failure.</param>
     /// <returns>A <see cref="Result"/> indicating a failed operation.</returns>
     public static Result Failure(HttpStatusCode statusCode, string message) => new ()
     {

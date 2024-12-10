@@ -1,9 +1,11 @@
 ﻿namespace API.Controllers;
 
-using Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
+/// <summary>
+/// Represents actions related to work with posts.
+/// </summary>
 [Authorize]
-public class PostsController(IPostsService service) : BaseAPIController
+public class PostsController() : BaseAPIController
 {
 }

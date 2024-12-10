@@ -44,7 +44,7 @@ public class ExceptionHandlerMiddleware
     }
 
     /// <summary>
-    /// Handles exceptions by setting the appropriate HTTP response status code, logging the error, 
+    /// Handles exceptions by setting the appropriate HTTP response status code, logging the error,
     /// and returning a standardized JSON error response.
     /// </summary>
     /// <param name="context">The HTTP context of the current request.</param>
