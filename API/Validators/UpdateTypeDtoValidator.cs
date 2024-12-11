@@ -15,8 +15,8 @@ public class UpdateTypeDtoValidator : AbstractValidator<UpdateTypeDto>
     public UpdateTypeDtoValidator()
     {
         RuleFor(x => x.Id)
-            .NotEmpty().WithMessage("The type id value cannot be empty.");
+            .NotEmpty().NotNull().WithMessage("The type id is required.");
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("The name should not be empty.");
+            .NotEmpty().NotNull().WithMessage("The type name is required.");
     }
 }

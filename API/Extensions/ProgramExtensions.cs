@@ -72,7 +72,7 @@ public static class ProgramExtensions
             opt.UseNpgsql(configuration.GetConnectionString(CONNECTIONSTRINGKEY), b =>
             {
                 b.MigrationsAssembly(typeof(AppDbContext).Assembly);
-            });
+            }).UseLazyLoadingProxies();
         });
     }
 
@@ -87,6 +87,7 @@ public static class ProgramExtensions
         services.AddScoped<IEngineTypesService, EngineTypesService>();
         services.AddScoped<IFuelTypesService, FuelTypesService>();
         services.AddScoped<IVehicleTypesService, VehicleTypesService>();
+        services.AddScoped<IVehicleMakesService, VehicleMakesService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
@@ -96,6 +97,7 @@ public static class ProgramExtensions
         services.AddScoped<IEngineTypesRepository, EngineTypesRepository>();
         services.AddScoped<IFuelTypesRepository, FuelTypesRepository>();
         services.AddScoped<IVehicleTypesRepository, VechicleTypesRepository>();
+        services.AddScoped<IVehicleMakesRepository, VehicleMakesRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)
@@ -104,6 +106,8 @@ public static class ProgramExtensions
         services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
         services.AddScoped<IValidator<CreateTypeDto>, CreateTypeDtoValidator>();
         services.AddScoped<IValidator<UpdateTypeDto>, UpdateTypeDtoValidator>();
+        services.AddScoped<IValidator<CreateVehicleMakeDto>, CreateVehicleMakeDtoValidator>();
+        services.AddScoped<IValidator<UpdateVehicleMakeDto>, UpdateVehicleMakeDtoValidator>();
     }
 
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)

@@ -15,7 +15,7 @@ public class CreateTypeDtoValidator : AbstractValidator<CreateTypeDto>
     public CreateTypeDtoValidator()
     {
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("The type name should not be empty.")
+            .NotEmpty().NotNull().WithMessage("The type name should not be null or empty.")
             .MaximumLength(30).WithMessage("The type name cannot be more than 30 characters.");
     }
 }
