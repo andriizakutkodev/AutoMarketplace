@@ -1,5 +1,7 @@
 ﻿namespace Persistence.Repositories;
 
+using System;
+using System.Linq.Expressions;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Interfaces;
@@ -42,12 +44,34 @@ public class GenericRepository<T> : IGenericRepository<T>
     }
 
     /// <summary>
-    /// Asynchronously retrieves all entities of type <typeparamref name="T"/> from the database.
+    /// Retrieves a collection of entities from the database, optionally filtered by a predicate, and with optional pagination.
     /// </summary>
-    /// <returns>A collection of all entities of type <typeparamref name="T"/>.</returns>
-    public async Task<ICollection<T>> GetAll()
+    /// <param name="predicate">An optional filter expression to apply to the entities. If null, no filter is applied.</param>
+    /// <param name="skip">An optional number of records to skip. If null, no records are skipped.</param>
+    /// <param name="take">An optional number of records to take. If null, all matching records are returned.</param>
+    /// <returns>
+    /// A task representing the asynchronous operation, containing a collection of entities that match the specified criteria.
+    /// </returns>
+    public async Task<ICollection<T>> GetAll(Expression<Func<T, bool>>? predicate = default, int? skip = default, int? take = default)
     {
-        return await _context.Set<T>().ToListAsync();
+        var query = _context.Set<T>().AsQueryable();
+
+        if (predicate is not null)
+        {
+            query = query.Where(predicate);
+        }
+
+        if (skip.HasValue)
+        {
+            query = query.Skip(skip.Value);
+        }
+
+        if (take.HasValue)
+        {
+            query = query.Take(take.Value);
+        }
+
+        return await query.ToListAsync();
     }
 
     /// <summary>

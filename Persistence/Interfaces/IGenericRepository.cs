@@ -1,5 +1,7 @@
 ﻿namespace Persistence.Interfaces;
 
+using System.Linq.Expressions;
+
 /// <summary>
 /// A generic repository interface for performing CRUD operations on entities of type <typeparamref name="T"/>.
 /// </summary>
@@ -8,10 +10,15 @@ public interface IGenericRepository<T>
     where T : class
 {
     /// <summary>
-    /// Retrieves all entities of type <typeparamref name="T"/> from the database.
+    /// Retrieves a collection of entities from the database, optionally filtered by a predicate, and with optional pagination.
     /// </summary>
-    /// <returns>A collection of all entities of type <typeparamref name="T"/>.</returns>
-    Task<ICollection<T>> GetAll();
+    /// <param name="predicate">An optional filter expression to apply to the entities. If null, no filter is applied.</param>
+    /// <param name="skip">An optional number of records to skip. If null, no records are skipped.</param>
+    /// <param name="take">An optional number of records to take. If null, all matching records are returned.</param>
+    /// <returns>
+    /// A task representing the asynchronous operation, containing a collection of entities that match the specified criteria.
+    /// </returns>
+    Task<ICollection<T>> GetAll(Expression<Func<T, bool>>? predicate = default, int? skip = default, int? take = default);
 
     /// <summary>
     /// Retrieves a specific entity by its unique identifier.
