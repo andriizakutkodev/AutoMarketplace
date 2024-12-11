@@ -10,7 +10,7 @@ using Persistence.Interfaces;
 /// A generic repository implementation for performing common database operations.
 /// </summary>
 /// <typeparam name="T">The type of entity this repository manages. Must be a reference type.</typeparam>
-public class GenericRepository<T> : IGenericRepository<T>
+public abstract class GenericRepository<T> : IGenericRepository<T>
     where T : class
 {
     private readonly AppDbContext _context;

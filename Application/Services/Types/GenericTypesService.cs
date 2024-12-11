@@ -20,7 +20,7 @@ using Persistence.Interfaces;
 /// <typeparam name="TEntity">
 /// The entity type that must inherit from <see cref="GenericType"/>.
 /// </typeparam>
-public class GenericTypesService<TRepository, TEntity> : IGenericTypesService
+public abstract class GenericTypesService<TRepository, TEntity> : IGenericTypesService
     where TRepository : IGenericRepository<TEntity>
     where TEntity : GenericType
 {
