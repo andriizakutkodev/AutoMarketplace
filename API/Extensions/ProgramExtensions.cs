@@ -94,10 +94,7 @@ public static class ProgramExtensions
 
     private static void RegisterValidators(IServiceCollection services)
     {
-        services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
-        services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
-        services.AddScoped<IValidator<CreateVehicleModelDto>, CreateVehicleModelDtoValidator>();
-        services.AddScoped<IValidator<UpdateVehicleModelDto>, UpdateVehicleModelDtoValidator>();
+        services.AddValidatorsFromAssemblyContaining<LoginDtoValidator>();
     }
 
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)

@@ -1,12 +1,17 @@
-﻿namespace Domain.Entities;
+﻿namespace Application.DTOs;
 
 using Domain.Enums;
 
 /// <summary>
-/// Represents a announcement entity, typically used to store information about a listing or advertisement.
+/// Data transfer object for updating an announcement model.
 /// </summary>
-public class Announcement : BaseEntity
+public class UpdateAnnouncementDto
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for an announcement.
+    /// </summary>
+    public Guid Id { get; set; }
+
     /// <summary>
     /// Gets or sets the title for an announcement.
     /// </summary>
@@ -43,22 +48,7 @@ public class Announcement : BaseEntity
     public AnnouncementStatus Status { get; set; }
 
     /// <summary>
-    /// Gets or sets the date and time when the announcement was created.
-    /// </summary>
-    public DateTimeOffset CreatedAt { get; set; }
-
-    /// <summary>
-    /// Gets or sets the date and time when the announcement was published.
-    /// </summary>
-    public DateTimeOffset? PublishAt { get; set; }
-
-    /// <summary>
     /// Gets or sets the associated vehicle details for the announcement.
     /// </summary>
-    public virtual VehicleModel Vehicle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the owner for the announcement.
-    /// </summary>
-    public virtual User Owner { get; set; }
+    public virtual UpdateVehicleModelDto Vehicle { get; set; }
 }
