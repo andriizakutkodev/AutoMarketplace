@@ -27,9 +27,9 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
         {
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
-            Make = vehicleModel.Make.ToString(),
-            FuelType = vehicleModel.FuelType.ToString(),
-            EngineType = vehicleModel.EngineType.ToString(),
+            Make = vehicleModel.Make,
+            FuelType = vehicleModel.FuelType,
+            EngineType = vehicleModel.EngineType,
             ReleaseDate = vehicleModel.ReleaseDate,
         }).ToList();
 
