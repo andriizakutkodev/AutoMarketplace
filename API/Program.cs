@@ -2,7 +2,9 @@ namespace API;
 
 using API.Extensions;
 using API.Middlewares;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Pepresents the main class of application.
@@ -22,6 +24,13 @@ public class Program
         builder.Services.RegisterDependencies(builder.Configuration);
 
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            dbContext.Database.Migrate();
+        }
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
         app.UseMiddleware<TokenExpirationMiddleware>();
