@@ -12,7 +12,7 @@ public interface IVehicleModelsService
     /// Retrieves all vehicle models.
     /// </summary>
     /// <returns>
-    /// A task representing the asynchronous operation. 
+    /// A task representing the asynchronous operation.
     /// The task result contains a collection of <see cref="VehicleModelDto"/>.
     /// </returns>
     Task<Result<ICollection<VehicleModelDto>>> GetAll();
@@ -32,7 +32,7 @@ public interface IVehicleModelsService
     /// </summary>
     /// <param name="createVehicleModelDto">The data transfer object containing the details of the vehicle model to create.</param>
     /// <returns>
-    /// A task representing the asynchronous operation. 
+    /// A task representing the asynchronous operation.
     /// The task result indicates whether the creation was successful.
     /// </returns>
     Task<Result> Create(CreateVehicleModelDto createVehicleModelDto);
@@ -42,7 +42,7 @@ public interface IVehicleModelsService
     /// </summary>
     /// <param name="updateVehicleModelDto">The data transfer object containing the updated details of the vehicle model.</param>
     /// <returns>
-    /// A task representing the asynchronous operation. 
+    /// A task representing the asynchronous operation.
     /// The task result indicates whether the update was successful.
     /// </returns>
     Task<Result> Update(UpdateVehicleModelDto updateVehicleModelDto);
@@ -52,7 +52,7 @@ public interface IVehicleModelsService
     /// </summary>
     /// <param name="id">The unique identifier of the vehicle model to delete.</param>
     /// <returns>
-    /// A task representing the asynchronous operation. 
+    /// A task representing the asynchronous operation.
     /// The task result indicates whether the deletion was successful.
     /// </returns>
     Task<Result> Delete(Guid id);

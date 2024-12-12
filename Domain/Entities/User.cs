@@ -53,5 +53,5 @@ public class User : BaseEntity
     /// <summary>
     /// Gets or sets the posts data for the user.
     /// </summary>
-    public virtual ICollection<Post> Posts { get; set; }
+    public virtual ICollection<Announcement> Posts { get; set; }
 }

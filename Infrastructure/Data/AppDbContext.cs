@@ -21,7 +21,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> ops)
     /// <summary>
     /// Gets or sets the db set of posts.
     /// </summary>
-    public DbSet<Post> Posts { get; set; }
+    public DbSet<Announcement> Announcements { get; set; }
 
     /// <summary>
     /// Gets or sets the db set of users.

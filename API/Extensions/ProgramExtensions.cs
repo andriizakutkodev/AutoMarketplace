@@ -76,7 +76,7 @@ public static class ProgramExtensions
 
     private static void RegisterServices(IServiceCollection services)
     {
-        services.AddScoped<IPostsService, PostsService>();
+        services.AddScoped<IAnnouncementsService, AnnouncementsService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUsersService, UsersService>();
         services.AddSingleton<IPasswordHandlerService, PasswordHandlerService>();
@@ -87,7 +87,7 @@ public static class ProgramExtensions
 
     private static void RegisterRepositories(IServiceCollection services)
     {
-        services.AddScoped<IPostsRepository, PostsRepository>();
+        services.AddScoped<IAnnouncementsRepository, AnnouncementsRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IVehicleModelsRepository, VehicleModelsRepository>();
     }

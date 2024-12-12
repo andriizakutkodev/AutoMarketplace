@@ -6,6 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 /// Represents actions related to work with posts.
 /// </summary>
 [Authorize]
-public class PostsController() : BaseAPIController
+public class AnnouncementsController() : BaseAPIController
 {
 }

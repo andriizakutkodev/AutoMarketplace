@@ -1,9 +1,9 @@
 ﻿namespace Domain.Enums;
 
 /// <summary>
-/// Represents the post statuses enum.
+/// Represents the announcement statuses enum.
 /// </summary>
-public enum PostStatus
+public enum AnnouncementStatus
 {
     /// <summary>
     /// Pending status.
@@ -19,4 +19,14 @@ public enum PostStatus
     /// Canceled status.
     /// </summary>
     Canceled = 3,
+
+    /// <summary>
+    /// Rejected status.
+    /// </summary>
+    Rejected = 4,
+
+    /// <summary>
+    /// Sold status.
+    /// </summary>
+    Sold = 5,
 }
