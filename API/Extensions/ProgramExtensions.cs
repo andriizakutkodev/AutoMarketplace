@@ -88,6 +88,7 @@ public static class ProgramExtensions
         services.AddScoped<IFuelTypesService, FuelTypesService>();
         services.AddScoped<IVehicleTypesService, VehicleTypesService>();
         services.AddScoped<IVehicleMakesService, VehicleMakesService>();
+        services.AddScoped<IVehicleModelsService, VehicleModelsService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
@@ -98,6 +99,7 @@ public static class ProgramExtensions
         services.AddScoped<IFuelTypesRepository, FuelTypesRepository>();
         services.AddScoped<IVehicleTypesRepository, VechicleTypesRepository>();
         services.AddScoped<IVehicleMakesRepository, VehicleMakesRepository>();
+        services.AddScoped<IVehicleModelsRepository, VehicleModelsRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)
@@ -108,6 +110,8 @@ public static class ProgramExtensions
         services.AddScoped<IValidator<UpdateTypeDto>, UpdateTypeDtoValidator>();
         services.AddScoped<IValidator<CreateVehicleMakeDto>, CreateVehicleMakeDtoValidator>();
         services.AddScoped<IValidator<UpdateVehicleMakeDto>, UpdateVehicleMakeDtoValidator>();
+        services.AddScoped<IValidator<CreateVehicleModelDto>, CreateVehicleModelDtoValidator>();
+        services.AddScoped<IValidator<UpdateVehicleModelDto>, UpdateVehicleModelDtoValidator>();
     }
 
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
