@@ -28,11 +28,6 @@ public class VehicleModel : BaseEntity
     public virtual EngineType EngineType { get; set; }
 
     /// <summary>
-    /// Gets or sets the fuel type of the vehicle.
-    /// </summary>
-    public virtual FuelType FuelType { get; set; }
-
-    /// <summary>
     /// Gets or sets the release date of the vehicle (e.g., production date).
     /// </summary>
     public DateTimeOffset ReleaseDate { get; set; }

@@ -1,11 +1,9 @@
 ﻿namespace Application.Services;
 
 using System.Net;
-
 using Application.DTOs;
 using Application.Interfaces;
 using Domain.Entities;
-using Domain.Enums;
 using Infrastructure.Results;
 using Persistence.Interfaces;
 
@@ -25,10 +23,10 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
 
         var vehicleModelDtos = vehicleModels.Select(vehicleModel => new VehicleModelDto
         {
+            Id = vehicleModel.Id,
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
             Make = vehicleModel.Make,
-            FuelType = vehicleModel.FuelType,
             EngineType = vehicleModel.EngineType,
             ReleaseDate = vehicleModel.ReleaseDate,
         }).ToList();
@@ -52,10 +50,10 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
 
         var vehicleModelDto = new VehicleModelDto
         {
+            Id = vehicleModel.Id,
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
             Make = vehicleModel.Make,
-            FuelType = vehicleModel.FuelType,
             EngineType = vehicleModel.EngineType,
             ReleaseDate = vehicleModel.ReleaseDate,
         };
@@ -72,12 +70,12 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
     {
         var vehicleModelToCreate = new VehicleModel
         {
+            Id = Guid.NewGuid(),
             Name = createVehicleModelDto.Name,
             EngineCapacity = createVehicleModelDto.EngineCapacity,
             ReleaseDate = createVehicleModelDto.ReleaseDate,
             Make = createVehicleModelDto.Make,
             EngineType = createVehicleModelDto.EngineType,
-            FuelType = createVehicleModelDto.FuelType,
         };
 
         var isCreated = await repository.Create(vehicleModelToCreate);
@@ -104,7 +102,6 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
         vehicleModelToUpdate.ReleaseDate = updateVehicleModelDto.ReleaseDate;
         vehicleModelToUpdate.Make = updateVehicleModelDto.Make;
         vehicleModelToUpdate.EngineType = updateVehicleModelDto.EngineType;
-        vehicleModelToUpdate.FuelType = updateVehicleModelDto.FuelType;
 
         var isUpdated = await repository.Update(vehicleModelToUpdate);
 
