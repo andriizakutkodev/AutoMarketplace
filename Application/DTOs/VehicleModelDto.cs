@@ -25,12 +25,12 @@ public class VehicleModelDto
     /// <summary>
     /// Gets or sets the make (manufacturer) of the vehicle model.
     /// </summary>
-    public VehicleMake Make { get; set; }
+    public string Make { get; set; }
 
     /// <summary>
     /// Gets or sets the engine type of the vehicle.
     /// </summary>
-    public EngineType EngineType { get; set; }
+    public string EngineType { get; set; }
 
     /// <summary>
     /// Gets or sets the release date of the vehicle (e.g., production date).

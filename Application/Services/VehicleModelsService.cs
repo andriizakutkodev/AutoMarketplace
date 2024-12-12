@@ -4,6 +4,8 @@ using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
+
 using Infrastructure.Results;
 using Persistence.Interfaces;
 
@@ -26,8 +28,8 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
-            Make = vehicleModel.Make,
-            EngineType = vehicleModel.EngineType,
+            Make = vehicleModel.Make.ToString(),
+            EngineType = vehicleModel.EngineType.ToString(),
             ReleaseDate = vehicleModel.ReleaseDate,
         }).ToList();
 
@@ -53,8 +55,8 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
-            Make = vehicleModel.Make,
-            EngineType = vehicleModel.EngineType,
+            Make = vehicleModel.Make.ToString(),
+            EngineType = vehicleModel.EngineType.ToString(),
             ReleaseDate = vehicleModel.ReleaseDate,
         };
 
