@@ -22,7 +22,7 @@ public interface IVehicleModelsService
     /// </summary>
     /// <param name="id">The unique identifier of the vehicle model.</param>
     /// <returns>
-    /// A task representing the asynchronous operation. 
+    /// A task representing the asynchronous operation.
     /// The task result contains the <see cref="VehicleModelDto"/> if found.
     /// </returns>
     Task<Result<VehicleModelDto>> GetById(Guid id);

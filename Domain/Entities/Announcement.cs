@@ -38,9 +38,19 @@ public class Announcement : BaseEntity
     public AnnouncementStatus Status { get; set; }
 
     /// <summary>
+    /// Gets or sets the verification status of the announcement (e.g. verified or not verified).
+    /// </summary>
+    public VerificationStatus VerificationStatus { get; set; }
+
+    /// <summary>
+    /// Gets or sets the date and time when the announcement was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt { get; set; }
+
+    /// <summary>
     /// Gets or sets the date and time when the announcement was published.
     /// </summary>
-    public DateTimeOffset PublishAt { get; set; }
+    public DateTimeOffset? PublishAt { get; set; }
 
     /// <summary>
     /// Gets or sets the associated vehicle details for the announcement.
