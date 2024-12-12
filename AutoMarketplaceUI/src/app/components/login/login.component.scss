@@ -1,0 +1,55 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 50px;
+
+  .mat-mdc-card {
+    min-width: 350px;
+
+    .mat-mdc-card-header {
+      display: flex;
+      justify-content: center;
+      font-size: x-large;
+      font-weight: bold;
+      color: #440000;
+    }
+
+    .mat-mdc-card-content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+      gap: 5px;
+
+      .form {
+        .mat-mdc-form-field {
+          width: 100%;
+        }
+
+        .mat-mdc-button.custom-button {
+          width: 100%;
+        }
+      }
+    }
+
+    .mat-mdc-card-actions {
+      display: flex;
+      flex-direction: column;
+
+      .additional-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .login-container {
+    .mat-mdc-card {
+      min-width: 200px;
+    }
+  }
+}
