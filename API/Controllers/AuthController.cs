@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers;
 
-using Application.DTOs.Requests;
+using Application.DTOs;
 using Application.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs.Responses;
+﻿namespace Application.DTOs;
 
 /// <summary>
 /// Represents a Data Transfer Object (DTO) containing user information.

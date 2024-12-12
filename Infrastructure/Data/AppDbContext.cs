@@ -14,26 +14,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> ops)
     : DbContext(ops)
 {
     /// <summary>
-    /// Gets or sets the db set of fuel types.
-    /// </summary>
-    public DbSet<FuelType> FuelTypes { get; set; }
-
-    /// <summary>
-    /// Gets or sets the db set of engine types.
-    /// </summary>
-    public DbSet<EngineType> EngineTypes { get; set; }
-
-    /// <summary>
-    /// Gets or sets the db set of vehicle types.
-    /// </summary>
-    public DbSet<VehicleType> VehicleTypes { get; set; }
-
-    /// <summary>
-    /// Gets or sets the db set of vehicle makes.
-    /// </summary>
-    public DbSet<VehicleMake> VehicleMakes { get; set; }
-
-    /// <summary>
     /// Gets or sets the db set of vehicle models.
     /// </summary>
     public DbSet<VehicleModel> VehicleModels { get; set; }

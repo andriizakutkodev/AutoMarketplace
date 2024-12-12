@@ -1,6 +1,6 @@
 ﻿namespace API.Validators;
 
-using Application.DTOs.Requests;
+using Application.DTOs;
 using FluentValidation;
 
 /// <summary>

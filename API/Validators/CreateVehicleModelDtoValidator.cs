@@ -1,6 +1,6 @@
 ﻿namespace API.Validators;
 
-using Application.DTOs.Requests;
+using Application.DTOs;
 using FluentValidation;
 
 /// <summary>
@@ -20,11 +20,14 @@ public class CreateVehicleModelDtoValidator : AbstractValidator<CreateVehicleMod
             .NotEmpty().NotNull().WithMessage("The release date should not be null or empty.");
         RuleFor(x => x.EngineCapacity)
             .NotEmpty().NotNull().WithMessage("The engine capacity should not be null or empty");
-        RuleFor(x => x.VehicleMakeId)
-            .NotEmpty().NotNull().WithMessage("The vehicle make id should not be null or empty.");
-        RuleFor(x => x.FuelTypeId)
-            .NotEmpty().NotNull().WithMessage("The fuel type id should not be null or empty.");
-        RuleFor(x => x.EngineTypeId)
-            .NotEmpty().NotNull().WithMessage("The engine type id should not be null or empty.");
+        RuleFor(x => x.Make)
+            .NotEmpty().NotNull().WithMessage("The vehicle make id should not be null or empty.")
+            .IsInEnum();
+        RuleFor(x => x.FuelType)
+            .NotEmpty().NotNull().WithMessage("The fuel type id should not be null or empty.")
+            .IsInEnum();
+        RuleFor(x => x.EngineType)
+            .NotEmpty().NotNull().WithMessage("The engine type id should not be null or empty.")
+            .IsInEnum();
     }
 }

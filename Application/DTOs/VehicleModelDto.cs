@@ -1,11 +1,11 @@
-﻿namespace Domain.Entities;
+﻿namespace Application.DTOs;
 
 using Domain.Enums;
 
 /// <summary>
-/// Represents a specific model of a vehicle.
+/// Represents a Data Transfer Object (DTO) containing vehicle model information.
 /// </summary>
-public class VehicleModel : BaseEntity
+public class VehicleModelDto
 {
     /// <summary>
     /// Gets or sets the name of the vehicle model.
@@ -20,17 +20,17 @@ public class VehicleModel : BaseEntity
     /// <summary>
     /// Gets or sets the make (manufacturer) of the vehicle model.
     /// </summary>
-    public virtual VehicleMake Make { get; set; }
+    public VehicleMake Make { get; set; }
 
     /// <summary>
     /// Gets or sets the engine type of the vehicle.
     /// </summary>
-    public virtual EngineType EngineType { get; set; }
+    public EngineType EngineType { get; set; }
 
     /// <summary>
     /// Gets or sets the fuel type of the vehicle.
     /// </summary>
-    public virtual FuelType FuelType { get; set; }
+    public FuelType FuelType { get; set; }
 
     /// <summary>
     /// Gets or sets the release date of the vehicle (e.g., production date).

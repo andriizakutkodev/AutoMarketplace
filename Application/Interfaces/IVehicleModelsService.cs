@@ -1,7 +1,6 @@
 ﻿namespace Application.Interfaces;
 
-using Application.DTOs.Requests;
-using Application.DTOs.Responses;
+using Application.DTOs;
 using Infrastructure.Results;
 
 /// <summary>

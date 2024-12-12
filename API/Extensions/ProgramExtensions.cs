@@ -13,9 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using Application.DTOs.Requests;
-using Application.Services.Types;
-using Application.Interfaces.Types;
+using Application.DTOs;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -84,10 +82,6 @@ public static class ProgramExtensions
         services.AddSingleton<IPasswordHandlerService, PasswordHandlerService>();
         services.AddSingleton<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IEngineTypesService, EngineTypesService>();
-        services.AddScoped<IFuelTypesService, FuelTypesService>();
-        services.AddScoped<IVehicleTypesService, VehicleTypesService>();
-        services.AddScoped<IVehicleMakesService, VehicleMakesService>();
         services.AddScoped<IVehicleModelsService, VehicleModelsService>();
     }
 
@@ -95,10 +89,6 @@ public static class ProgramExtensions
     {
         services.AddScoped<IPostsRepository, PostsRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
-        services.AddScoped<IEngineTypesRepository, EngineTypesRepository>();
-        services.AddScoped<IFuelTypesRepository, FuelTypesRepository>();
-        services.AddScoped<IVehicleTypesRepository, VechicleTypesRepository>();
-        services.AddScoped<IVehicleMakesRepository, VehicleMakesRepository>();
         services.AddScoped<IVehicleModelsRepository, VehicleModelsRepository>();
     }
 
@@ -106,10 +96,6 @@ public static class ProgramExtensions
     {
         services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
         services.AddScoped<IValidator<RegisterDto>, RegisterDtoValidator>();
-        services.AddScoped<IValidator<CreateTypeDto>, CreateTypeDtoValidator>();
-        services.AddScoped<IValidator<UpdateTypeDto>, UpdateTypeDtoValidator>();
-        services.AddScoped<IValidator<CreateVehicleMakeDto>, CreateVehicleMakeDtoValidator>();
-        services.AddScoped<IValidator<UpdateVehicleMakeDto>, UpdateVehicleMakeDtoValidator>();
         services.AddScoped<IValidator<CreateVehicleModelDto>, CreateVehicleModelDtoValidator>();
         services.AddScoped<IValidator<UpdateVehicleModelDto>, UpdateVehicleModelDtoValidator>();
     }

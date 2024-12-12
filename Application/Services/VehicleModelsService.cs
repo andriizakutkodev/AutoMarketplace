@@ -1,10 +1,11 @@
 ﻿namespace Application.Services;
 
 using System.Net;
-using Application.DTOs.Requests;
-using Application.DTOs.Responses;
+
+using Application.DTOs;
 using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Results;
 using Persistence.Interfaces;
 
@@ -12,11 +13,7 @@ using Persistence.Interfaces;
 /// Service for managing vehicle models, including creating, updating,
 /// retrieving, and deleting vehicle model data.
 /// </summary>
-public class VehicleModelsService(
-    IVehicleModelsRepository repository,
-    IFuelTypesRepository fuelTypesRepository,
-    IVehicleMakesRepository vehicleMakesRepository,
-    IEngineTypesRepository engineTypesRepository) : IVehicleModelsService
+public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicleModelsService
 {
     /// <summary>
     /// Retrieves all vehicle models.
@@ -30,22 +27,10 @@ public class VehicleModelsService(
         {
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
+            Make = vehicleModel.Make.ToString(),
+            FuelType = vehicleModel.FuelType.ToString(),
+            EngineType = vehicleModel.EngineType.ToString(),
             ReleaseDate = vehicleModel.ReleaseDate,
-            Make = new TypeDto
-            {
-                Id = vehicleModel.Make.Id,
-                Name = vehicleModel.Make.Name,
-            },
-            EngineType = new TypeDto
-            {
-                Id = vehicleModel.EngineType.Id,
-                Name = vehicleModel.EngineType.Name,
-            },
-            FuelType = new TypeDto
-            {
-                Id = vehicleModel.FuelType.Id,
-                Name = vehicleModel.FuelType.Name,
-            },
         }).ToList();
 
         return Result<ICollection<VehicleModelDto>>.Success(vehicleModelDtos);
@@ -69,22 +54,10 @@ public class VehicleModelsService(
         {
             Name = vehicleModel.Name,
             EngineCapacity = vehicleModel.EngineCapacity,
+            Make = vehicleModel.Make,
+            FuelType = vehicleModel.FuelType,
+            EngineType = vehicleModel.EngineType,
             ReleaseDate = vehicleModel.ReleaseDate,
-            Make = new TypeDto
-            {
-                Id = vehicleModel.Make.Id,
-                Name = vehicleModel.Make.Name,
-            },
-            EngineType = new TypeDto
-            {
-                Id = vehicleModel.EngineType.Id,
-                Name = vehicleModel.EngineType.Name,
-            },
-            FuelType = new TypeDto
-            {
-                Id = vehicleModel.FuelType.Id,
-                Name = vehicleModel.FuelType.Name,
-            },
         };
 
         return Result<VehicleModelDto>.Success(vehicleModelDto);
@@ -97,35 +70,14 @@ public class VehicleModelsService(
     /// <returns>A success result if created, or a failure result with the reason if creation fails.</returns>
     public async Task<Result> Create(CreateVehicleModelDto createVehicleModelDto)
     {
-        var make = await vehicleMakesRepository.GetById(createVehicleModelDto.VehicleMakeId);
-
-        if (make is null)
-        {
-            return Result.Failure(HttpStatusCode.NotFound, "The vehicle make was not found.");
-        }
-
-        var engineType = await engineTypesRepository.GetById(createVehicleModelDto.EngineTypeId);
-
-        if (engineType is null)
-        {
-            return Result.Failure(HttpStatusCode.NotFound, "The engine type was not found.");
-        }
-
-        var fuelType = await fuelTypesRepository.GetById(createVehicleModelDto.FuelTypeId);
-
-        if (fuelType is null)
-        {
-            return Result.Failure(HttpStatusCode.NotFound, "The fuel type was not found.");
-        }
-
         var vehicleModelToCreate = new VehicleModel
         {
             Name = createVehicleModelDto.Name,
             EngineCapacity = createVehicleModelDto.EngineCapacity,
             ReleaseDate = createVehicleModelDto.ReleaseDate,
-            Make = make,
-            EngineType = engineType,
-            FuelType = fuelType,
+            Make = createVehicleModelDto.Make,
+            EngineType = createVehicleModelDto.EngineType,
+            FuelType = createVehicleModelDto.FuelType,
         };
 
         var isCreated = await repository.Create(vehicleModelToCreate);
@@ -150,9 +102,9 @@ public class VehicleModelsService(
         vehicleModelToUpdate.Name = updateVehicleModelDto.Name;
         vehicleModelToUpdate.EngineCapacity = updateVehicleModelDto.EngineCapacity;
         vehicleModelToUpdate.ReleaseDate = updateVehicleModelDto.ReleaseDate;
-        vehicleModelToUpdate.Make.Name = updateVehicleModelDto.Make.Name;
-        vehicleModelToUpdate.EngineType.Name = updateVehicleModelDto.EngineType.Name;
-        vehicleModelToUpdate.FuelType.Name = updateVehicleModelDto.FuelType.Name;
+        vehicleModelToUpdate.Make = updateVehicleModelDto.Make;
+        vehicleModelToUpdate.EngineType = updateVehicleModelDto.EngineType;
+        vehicleModelToUpdate.FuelType = updateVehicleModelDto.FuelType;
 
         var isUpdated = await repository.Update(vehicleModelToUpdate);
 
