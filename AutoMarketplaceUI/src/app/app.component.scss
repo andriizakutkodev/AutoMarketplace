@@ -1,6 +1,6 @@
 .scrollable-container {
   height: 100vh;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 0 10%;
+  overflow: auto;
 }

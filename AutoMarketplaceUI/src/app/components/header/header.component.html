@@ -1,0 +1,71 @@
+<div class="header-container">
+  <div id="hamburger-container" class="header-item hamburger-container">
+    <input type="checkbox" id="checkbox" class="checkbox visually-hidden">
+    <label for="checkbox">
+      <div class="hamburger" (click)="toggleHamburgerMenu($event)">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+        <span class="bar bar4"></span>
+        <span class="bar bar5"></span>
+      </div>
+    </label>
+  </div>
+  <div class="header-item logo-item">
+    <a href="/"><img src="img/AutoMarketplace_Logo.png" alt="logo" width="200"></a>
+  </div>
+  <div class="header-item links-container">
+    <div class="fast-tabs-container">
+      <button mat-button class="custom-link-button">Used and New Cars</button>
+      <button mat-button class="custom-link-button">Motorbikes</button>
+    </div>
+    <div class="actions-container">
+      @if (!isAuthenticated) {
+        <button mat-button class="custom-link-button">
+          <fa-icon [icon]="faStar"></fa-icon>
+        </button>
+        <button mat-button class="custom-link-button" (click)="onLoginClick()">Login</button>
+      } @else {
+        <div class="user-image-container" (click)="toggleUserMenu($event)">
+          <img src="https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjgwLTE2Ni1wLWwxZGJ1cTN2LnBuZw.png" alt="user-image" width="30" height="30">
+        </div>
+      }
+    </div>
+  </div>
+  <div class="header-item mobile-view">
+    @if (!isAuthenticated) {
+      <button mat-button class="custom-link-button">
+        <fa-icon [icon]="faStar"></fa-icon>
+      </button>
+      <button mat-button class="custom-link-button" (click)="onLoginClick()">Login</button>
+    } @else {
+      <div class="user-image-container" (click)="toggleUserMenu($event)">
+        <img src="https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjgwLTE2Ni1wLWwxZGJ1cTN2LnBuZw.png" alt="user-image" width="30" height="30">
+      </div>
+    }
+  </div>
+</div>
+
+<div id="menu-container" class="menu-container">
+  <div class="general-menu-buttons">
+    <button mat-button class="custom-link-button">
+      Used and New Cars
+      <fa-icon [icon]="faArrowRight"></fa-icon>
+    </button>
+    <button mat-button class="custom-link-button">
+      Motorbikes
+      <fa-icon [icon]="faArrowRight"></fa-icon>
+    </button>
+  </div>
+  <div class="user-menu-buttons">
+    <mat-label class="user-name">Hey, {{ userName }}!</mat-label>
+    <button mat-button class="custom-link-button">
+      <fa-icon [icon]="faStar"></fa-icon>
+      Favourites
+    </button>
+    <button mat-button class="custom-link-button" (click)="onLogoutClick()">
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
+      Logout
+    </button>
+  </div>
+</div>
