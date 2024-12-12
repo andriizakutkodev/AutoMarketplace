@@ -22,28 +22,6 @@ public abstract class GenericRepository<T> : IGenericRepository<T>
     public GenericRepository(AppDbContext context) => _context = context;
 
     /// <summary>
-    /// Asynchronously creates a new entity in the database.
-    /// </summary>
-    /// <param name="entity">The entity to create.</param>
-    /// <returns>True if the entity was successfully created; otherwise, false.</returns>
-    public async Task<bool> Create(T entity)
-    {
-        await _context.Set<T>().AddAsync(entity);
-        return await _context.SaveChangesAsync() > 0;
-    }
-
-    /// <summary>
-    /// Asynchronously deletes an existing entity from the database.
-    /// </summary>
-    /// <param name="entity">The entity to delete.</param>
-    /// <returns>True if the entity was successfully deleted; otherwise, false.</returns>
-    public async Task<bool> Delete(T entity)
-    {
-        _context.Set<T>().Remove(entity);
-        return await _context.SaveChangesAsync() > 0;
-    }
-
-    /// <summary>
     /// Retrieves a collection of entities from the database, optionally filtered by a predicate, and with optional pagination.
     /// </summary>
     /// <param name="predicate">An optional filter expression to apply to the entities. If null, no filter is applied.</param>
@@ -85,6 +63,17 @@ public abstract class GenericRepository<T> : IGenericRepository<T>
     }
 
     /// <summary>
+    /// Asynchronously creates a new entity in the database.
+    /// </summary>
+    /// <param name="entity">The entity to create.</param>
+    /// <returns>True if the entity was successfully created; otherwise, false.</returns>
+    public async Task<bool> Create(T entity)
+    {
+        await _context.Set<T>().AddAsync(entity);
+        return await _context.SaveChangesAsync() > 0;
+    }
+
+    /// <summary>
     /// Asynchronously updates an existing entity in the database.
     /// </summary>
     /// <param name="entity">The entity to update.</param>
@@ -92,6 +81,17 @@ public abstract class GenericRepository<T> : IGenericRepository<T>
     public async Task<bool> Update(T entity)
     {
         _context.Set<T>().Update(entity);
+        return await _context.SaveChangesAsync() > 0;
+    }
+
+    /// <summary>
+    /// Asynchronously deletes an existing entity from the database.
+    /// </summary>
+    /// <param name="entity">The entity to delete.</param>
+    /// <returns>True if the entity was successfully deleted; otherwise, false.</returns>
+    public async Task<bool> Delete(T entity)
+    {
+        _context.Set<T>().Remove(entity);
         return await _context.SaveChangesAsync() > 0;
     }
 }
