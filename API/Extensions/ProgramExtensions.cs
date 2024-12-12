@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Application.DTOs;
+using Application.Mappers;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -61,6 +62,7 @@ public static class ProgramExtensions
         RegisterAuthentication(services, configuration);
         RegisterSwaggerConfiguration(services);
         RegisterCors(services);
+        RegisterAutoMapper(services);
     }
 
     private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -168,5 +170,10 @@ public static class ProgramExtensions
                 builder.AllowAnyHeader();
             });
         });
+    }
+
+    private static void RegisterAutoMapper(IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(AutoMapperProfile));
     }
 }

@@ -2,6 +2,7 @@
 
 using Application.DTOs;
 using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Results;
 
@@ -11,8 +12,8 @@ using Infrastructure.Results;
 public class AuthService(
     IUsersService usersService,
     IPasswordHandlerService passwordHandler,
-    IJwtService jwtService
-    ) : IAuthService
+    IJwtService jwtService,
+    IMapper mapper) : IAuthService
 {
     /// <summary>
     /// Logs in a user by validating their credentials and generating a JWT token.
@@ -55,18 +56,10 @@ public class AuthService(
     {
         var hashPasswordResult = passwordHandler.HashPassword(registerDto.Password, out byte[] salt);
 
-        var user = new User()
-        {
-            Email = registerDto.Email,
-            Name = registerDto.Name,
-            Surname = registerDto.Surname,
-            PhoneNumber = registerDto.PhoneNumber,
-            Password = hashPasswordResult.Data,
-            Salt = salt,
-            ImgUrl = registerDto.ImgUrl,
-            CreatedAt = DateTimeOffset.UtcNow,
-            UpdatedAt = DateTimeOffset.UtcNow,
-        };
+        var user = mapper.Map<User>(registerDto);
+
+        user.Password = hashPasswordResult.Data;
+        user.Salt = salt;
 
         var createUserResult = await usersService.Create(user);
 
@@ -108,12 +101,6 @@ public class AuthService(
     /// <returns>A <see cref="UserInfoDto"/> containing the user information.</returns>
     private UserInfoDto CreateNewUserInfoDto(User user)
     {
-        return new UserInfoDto()
-        {
-            Email = user.Email,
-            Name = user.Name,
-            Surname = user.Surname,
-            ImgUrl = user.ImgUrl,
-        };
+        return mapper.Map<UserInfoDto>(user);
     }
 }

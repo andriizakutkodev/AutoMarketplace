@@ -29,4 +29,9 @@ public class CreateAnnouncementDto
     /// Gets or sets the vehicle model identifier.
     /// </summary>
     public Guid VehicleModelId { get; set; }
+
+    /// <summary>
+    ///  Gets or sets the user's unique identifier.
+    /// </summary>
+    public string UserEmail { get; set; }
 }

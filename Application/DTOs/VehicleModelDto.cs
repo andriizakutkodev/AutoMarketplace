@@ -1,7 +1,5 @@
 ﻿namespace Application.DTOs;
 
-using Domain.Enums;
-
 /// <summary>
 /// Represents a Data Transfer Object (DTO) containing vehicle model information.
 /// </summary>

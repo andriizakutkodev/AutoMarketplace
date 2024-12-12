@@ -94,4 +94,15 @@ public abstract class GenericRepository<T> : IGenericRepository<T>
         _context.Set<T>().Remove(entity);
         return await _context.SaveChangesAsync() > 0;
     }
+
+    /// <summary>
+    /// Checks if a record with the specified ID exists in the database.
+    /// </summary>
+    /// <param name="id">The GUID identifier of the record to check.</param>
+    /// <returns>A task representing the asynchronous operation, with a boolean result indicating whether the record exists.</returns>
+    public async Task<(bool, T?)> IsRecordExist(Guid id)
+    {
+        var record = await _context.Set<T>().FindAsync(id);
+        return (record is not null, record);
+    }
 }

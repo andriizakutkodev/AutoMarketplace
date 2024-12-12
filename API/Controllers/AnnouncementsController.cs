@@ -57,9 +57,7 @@ public class AnnouncementsController(
             return HandleResult(CreateModelNotValidResult(result.Errors));
         }
 
-        var userId = Guid.Parse(HttpContext.GetSessionUserId() ?? throw new UnauthorizedAccessException());
-
-        return HandleResult(await service.Create(createAnnouncementDto, userId));
+        return HandleResult(await service.Create(createAnnouncementDto));
     }
 
     /// <summary>

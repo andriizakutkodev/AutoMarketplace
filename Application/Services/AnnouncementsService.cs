@@ -5,8 +5,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Application.DTOs;
 using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
-using Domain.Enums;
 using Infrastructure.Results;
 using Persistence.Interfaces;
 
@@ -17,7 +17,8 @@ using Persistence.Interfaces;
 public class AnnouncementsService(
     IAnnouncementsRepository repository,
     IVehicleModelsRepository vehicleModelsRepository,
-    IUsersRepository usersRepository) : IAnnouncementsService
+    IUsersRepository usersRepository,
+    IMapper mapper) : IAnnouncementsService
 {
     /// <summary>
     /// Retrieves all announcements and maps them to a collection of <see cref="AnnouncementDto"/>.
@@ -31,28 +32,7 @@ public class AnnouncementsService(
     {
         var announcements = await repository.GetAll();
 
-        var announcementDtos = announcements.Select(announcement => new AnnouncementDto
-        {
-            Id = announcement.Id,
-            Title = announcement.Title,
-            Description = announcement.Description,
-            Price = announcement.Price,
-            Mileage = announcement.Mileage,
-            IsHot = announcement.IsHot,
-            IsVerified = announcement.IsVerified,
-            Status = announcement.Status.ToString(),
-            CreatedAt = announcement.CreatedAt,
-            PublishAt = announcement.PublishAt,
-            Vehicle = new VehicleModelDto
-            {
-                Id = announcement.Vehicle.Id,
-                Name = announcement.Vehicle.Name,
-                EngineCapacity = announcement.Vehicle.EngineCapacity,
-                Make = announcement.Vehicle.Make.ToString(),
-                EngineType = announcement.Vehicle.EngineType.ToString(),
-                ReleaseDate = announcement.Vehicle.ReleaseDate,
-            },
-        }).ToList();
+        var announcementDtos = announcements.Select(mapper.Map<AnnouncementDto>).ToList();
 
         return Result<ICollection<AnnouncementDto>>.Success(announcementDtos);
     }
@@ -68,35 +48,14 @@ public class AnnouncementsService(
     /// </returns>
     public async Task<Result<AnnouncementDto>> GetById(Guid id)
     {
-        var announcement = await repository.GetById(id);
+        var (exists, announcement) = await repository.IsRecordExist(id);
 
-        if (announcement is null)
+        if (!exists)
         {
             return Result<AnnouncementDto>.Failure(HttpStatusCode.NotFound, "The announcement was not found");
         }
 
-        var announcementDto = new AnnouncementDto
-        {
-            Id = announcement.Id,
-            Title = announcement.Title,
-            Description = announcement.Description,
-            Price = announcement.Price,
-            Mileage = announcement.Mileage,
-            IsHot = announcement.IsHot,
-            IsVerified = announcement.IsVerified,
-            Status = announcement.Status.ToString(),
-            CreatedAt = announcement.CreatedAt,
-            PublishAt = announcement.PublishAt,
-            Vehicle = new VehicleModelDto
-            {
-                Id = announcement.Vehicle.Id,
-                Name = announcement.Vehicle.Name,
-                EngineCapacity = announcement.Vehicle.EngineCapacity,
-                Make = announcement.Vehicle.Make.ToString(),
-                EngineType = announcement.Vehicle.EngineType.ToString(),
-                ReleaseDate = announcement.Vehicle.ReleaseDate,
-            },
-        };
+        var announcementDto = mapper.Map<AnnouncementDto>(announcement);
 
         return Result<AnnouncementDto>.Success(announcementDto);
     }
@@ -107,7 +66,6 @@ public class AnnouncementsService(
     /// <param name="createAnnouncementDto">
     /// An object containing the data required to create a new announcement.
     /// </param>
-    /// <param name="userId">The unique identifier of the user creating the announcement.</param>
     /// <returns>
     /// A <see cref="Task{TResult}"/> representing the asynchronous operation.
     /// The result indicates whether the creation was successful or provides details about the failure.
@@ -115,31 +73,21 @@ public class AnnouncementsService(
     /// <exception cref="UnauthorizedAccessException">
     /// Thrown if the user with the specified <paramref name="userId"/> does not exist in the system.
     /// </exception>
-    public async Task<Result> Create(CreateAnnouncementDto createAnnouncementDto, Guid userId)
+    public async Task<Result> Create(CreateAnnouncementDto createAnnouncementDto)
     {
-        var vehicleModel = await vehicleModelsRepository.GetById(createAnnouncementDto.VehicleModelId);
+        var announcementToCreate = mapper.Map<Announcement>(createAnnouncementDto);
 
-        if (vehicleModel is null)
+        var (exists, vehicleModel) = await vehicleModelsRepository.IsRecordExist(createAnnouncementDto.VehicleModelId);
+
+        if (!exists)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
-        var user = await usersRepository.GetById(userId) ?? throw new UnauthorizedAccessException($"User with id {userId} doesn't exist in the sistem.");
+        var user = await usersRepository.GetByEmail(createAnnouncementDto.UserEmail) ?? throw new UnauthorizedAccessException($"User with {createAnnouncementDto.UserEmail} email doesn't exist in the sistem.");
 
-        var announcementToCreate = new Announcement
-        {
-            Id = Guid.NewGuid(),
-            Title = createAnnouncementDto.Title,
-            Description = createAnnouncementDto.Description,
-            Price = createAnnouncementDto.Price,
-            Mileage = createAnnouncementDto.Mileage,
-            IsHot = false,
-            IsVerified = false,
-            Status = AnnouncementStatus.Pending,
-            CreatedAt = DateTime.UtcNow,
-            Vehicle = vehicleModel,
-            Owner = user,
-        };
+        announcementToCreate.Vehicle = vehicleModel;
+        announcementToCreate.Owner = user;
 
         var isCreated = await repository.Create(announcementToCreate);
 
@@ -158,36 +106,21 @@ public class AnnouncementsService(
     /// </returns>
     public async Task<Result> Update(UpdateAnnouncementDto updateAnnouncementDto)
     {
-        var announcementToUpdate = await repository.GetById(updateAnnouncementDto.Id);
+        var (announcementExists, announcementToUpdate) = await repository.IsRecordExist(updateAnnouncementDto.Id);
 
-        if (announcementToUpdate is null)
+        if (!announcementExists)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The announcement was not found.");
         }
 
-        var vehicleToUpdate = await vehicleModelsRepository.GetById(updateAnnouncementDto.Vehicle.Id);
+        var (vehicleModelExists, _) = await vehicleModelsRepository.IsRecordExist(updateAnnouncementDto.Vehicle.Id);
 
-        if (vehicleToUpdate is null)
+        if (!vehicleModelExists)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
-        vehicleToUpdate.Name = updateAnnouncementDto.Vehicle.Name;
-        vehicleToUpdate.EngineCapacity = updateAnnouncementDto.Vehicle.EngineCapacity;
-        vehicleToUpdate.Make = updateAnnouncementDto.Vehicle.Make;
-        vehicleToUpdate.EngineType = updateAnnouncementDto.Vehicle.EngineType;
-        vehicleToUpdate.ReleaseDate = updateAnnouncementDto.Vehicle.ReleaseDate;
-
-        announcementToUpdate.Title = updateAnnouncementDto.Title;
-        announcementToUpdate.Description = updateAnnouncementDto.Description;
-        announcementToUpdate.Price = updateAnnouncementDto.Price;
-        announcementToUpdate.Mileage = updateAnnouncementDto.Mileage;
-        announcementToUpdate.IsHot = updateAnnouncementDto.IsHot;
-        announcementToUpdate.IsVerified = updateAnnouncementDto.IsVerified;
-        announcementToUpdate.Status = updateAnnouncementDto.Status;
-        announcementToUpdate.CreatedAt = announcementToUpdate.CreatedAt;
-        announcementToUpdate.PublishAt = announcementToUpdate.PublishAt;
-        announcementToUpdate.Vehicle = vehicleToUpdate;
+        mapper.Map(updateAnnouncementDto, announcementToUpdate);
 
         var isUpdated = await repository.Update(announcementToUpdate);
 
@@ -206,9 +139,9 @@ public class AnnouncementsService(
     /// </returns>
     public async Task<Result> Delete(Guid id)
     {
-        var announcementToDelete = await repository.GetById(id);
+        var (exists, announcementToDelete) = await repository.IsRecordExist(id);
 
-        if (announcementToDelete is null)
+        if (!exists)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The announcement was not found.");
         }

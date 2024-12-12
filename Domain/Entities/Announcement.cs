@@ -30,22 +30,22 @@ public class Announcement : BaseEntity
     /// <summary>
     /// Gets or sets a value indicating whether the announcement is marked as hot.
     /// </summary>
-    public bool IsHot { get; set; }
+    public bool IsHot { get; set; } = false;
 
     /// <summary>
     /// Gets or sets a value indicating whether the announcement is verified or not.
     /// </summary>
-    public bool IsVerified { get; set; }
+    public bool IsVerified { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the status of the announcement (e.g. pending, published, canceled).
     /// </summary>
-    public AnnouncementStatus Status { get; set; }
+    public AnnouncementStatus Status { get; set; } = AnnouncementStatus.Pending;
 
     /// <summary>
     /// Gets or sets the date and time when the announcement was created.
     /// </summary>
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
     /// <summary>
     /// Gets or sets the date and time when the announcement was published.

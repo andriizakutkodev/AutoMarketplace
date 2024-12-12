@@ -3,9 +3,8 @@
 using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
-using Domain.Enums;
-
 using Infrastructure.Results;
 using Persistence.Interfaces;
 
@@ -13,7 +12,9 @@ using Persistence.Interfaces;
 /// Service for managing vehicle models, including creating, updating,
 /// retrieving, and deleting vehicle model data.
 /// </summary>
-public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicleModelsService
+public class VehicleModelsService(
+    IVehicleModelsRepository repository,
+    IMapper mapper) : IVehicleModelsService
 {
     /// <summary>
     /// Retrieves all vehicle models.
@@ -23,15 +24,7 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
     {
         var vehicleModels = await repository.GetAll();
 
-        var vehicleModelDtos = vehicleModels.Select(vehicleModel => new VehicleModelDto
-        {
-            Id = vehicleModel.Id,
-            Name = vehicleModel.Name,
-            EngineCapacity = vehicleModel.EngineCapacity,
-            Make = vehicleModel.Make.ToString(),
-            EngineType = vehicleModel.EngineType.ToString(),
-            ReleaseDate = vehicleModel.ReleaseDate,
-        }).ToList();
+        var vehicleModelDtos = vehicleModels.Select(mapper.Map<VehicleModelDto>).ToList();
 
         return Result<ICollection<VehicleModelDto>>.Success(vehicleModelDtos);
     }
@@ -43,22 +36,14 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
     /// <returns>A result containing the VehicleModelDto object if found, or a failure result if not found.</returns>
     public async Task<Result<VehicleModelDto>> GetById(Guid id)
     {
-        var vehicleModel = await repository.GetById(id);
+        var (exists, vehicleModel) = await repository.IsRecordExist(id);
 
-        if (vehicleModel is null)
+        if (!exists)
         {
             return Result<VehicleModelDto>.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
-        var vehicleModelDto = new VehicleModelDto
-        {
-            Id = vehicleModel.Id,
-            Name = vehicleModel.Name,
-            EngineCapacity = vehicleModel.EngineCapacity,
-            Make = vehicleModel.Make.ToString(),
-            EngineType = vehicleModel.EngineType.ToString(),
-            ReleaseDate = vehicleModel.ReleaseDate,
-        };
+        var vehicleModelDto = mapper.Map<VehicleModelDto>(vehicleModel);
 
         return Result<VehicleModelDto>.Success(vehicleModelDto);
     }
@@ -70,15 +55,7 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
     /// <returns>A success result if created, or a failure result with the reason if creation fails.</returns>
     public async Task<Result> Create(CreateVehicleModelDto createVehicleModelDto)
     {
-        var vehicleModelToCreate = new VehicleModel
-        {
-            Id = Guid.NewGuid(),
-            Name = createVehicleModelDto.Name,
-            EngineCapacity = createVehicleModelDto.EngineCapacity,
-            ReleaseDate = createVehicleModelDto.ReleaseDate,
-            Make = createVehicleModelDto.Make,
-            EngineType = createVehicleModelDto.EngineType,
-        };
+        var vehicleModelToCreate = mapper.Map<VehicleModel>(createVehicleModelDto);
 
         var isCreated = await repository.Create(vehicleModelToCreate);
 
@@ -92,18 +69,14 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
     /// <returns>A success result if updated, or a failure result with the reason if update fails.</returns>
     public async Task<Result> Update(UpdateVehicleModelDto updateVehicleModelDto)
     {
-        var vehicleModelToUpdate = await repository.GetById(updateVehicleModelDto.Id);
+        var (exists, vehicleModelToUpdate) = await repository.IsRecordExist(updateVehicleModelDto.Id);
 
-        if (vehicleModelToUpdate is null)
+        if (!exists)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
-        vehicleModelToUpdate.Name = updateVehicleModelDto.Name;
-        vehicleModelToUpdate.EngineCapacity = updateVehicleModelDto.EngineCapacity;
-        vehicleModelToUpdate.ReleaseDate = updateVehicleModelDto.ReleaseDate;
-        vehicleModelToUpdate.Make = updateVehicleModelDto.Make;
-        vehicleModelToUpdate.EngineType = updateVehicleModelDto.EngineType;
+        mapper.Map(updateVehicleModelDto, vehicleModelToUpdate);
 
         var isUpdated = await repository.Update(vehicleModelToUpdate);
 
@@ -117,9 +90,9 @@ public class VehicleModelsService(IVehicleModelsRepository repository) : IVehicl
     /// <returns>A success result if deleted, or a failure result with the reason if deletion fails.</returns>
     public async Task<Result> Delete(Guid id)
     {
-        var vehicleModelToDelete = await repository.GetById(id);
+        var (exists, vehicleModelToDelete) = await repository.IsRecordExist(id);
 
-        if (vehicleModelToDelete is null)
+        if (!exists)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found");
         }

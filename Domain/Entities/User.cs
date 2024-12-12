@@ -43,15 +43,15 @@ public class User : BaseEntity
     /// <summary>
     /// Gets or sets the date and time when the user was created.
     /// </summary>
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
     /// <summary>
     /// Gets or sets the date and time when the user was last updated.
     /// </summary>
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 
     /// <summary>
     /// Gets or sets the posts data for the user.
     /// </summary>
-    public virtual ICollection<Announcement> Posts { get; set; }
+    public virtual ICollection<Announcement> Announcements { get; set; }
 }

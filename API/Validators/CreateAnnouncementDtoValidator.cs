@@ -24,5 +24,7 @@ public class CreateAnnouncementDtoValidator : AbstractValidator<CreateAnnounceme
             .Must(x => x > 0).WithMessage("Mileage should be more than 0.");
         RuleFor(x => x.VehicleModelId)
             .NotEmpty().NotNull().WithMessage("Vehicle model id is required.");
+        RuleFor(x => x.UserEmail)
+            .NotEmpty().NotNull().WithMessage("User's email is required.");
     }
 }

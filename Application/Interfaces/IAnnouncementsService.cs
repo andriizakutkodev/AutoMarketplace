@@ -32,12 +32,11 @@ public interface IAnnouncementsService
     /// Creates a new announcement using the provided data.
     /// </summary>
     /// <param name="createAnnouncementDto">The data transfer object containing the details of the announcement to create.</param>
-    /// /// <param name="userId">The unique identifier of user from session.</param>
     /// <returns>
     /// A <see cref="Task{TResult}"/> representing the asynchronous operation,
     /// with a result indicating whether the operation was successful or if an error occurred.
     /// </returns>
-    Task<Result> Create(CreateAnnouncementDto createAnnouncementDto, Guid userId);
+    Task<Result> Create(CreateAnnouncementDto createAnnouncementDto);
 
     /// <summary>
     /// Updates an existing announcement using the provided data.

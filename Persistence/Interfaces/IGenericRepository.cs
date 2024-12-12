@@ -47,4 +47,11 @@ public interface IGenericRepository<T>
     /// <param name="entity">The entity to delete.</param>
     /// <returns>True if the entity was successfully deleted; otherwise, false.</returns>
     Task<bool> Delete(T entity);
+
+    /// <summary>
+    /// Checks if a record with the specified ID exists in the database.
+    /// </summary>
+    /// <param name="id">The GUID identifier of the record to check.</param>
+    /// <returns>A task representing the asynchronous operation, with a boolean result indicating whether the record exists.</returns>
+    Task<(bool, T?)> IsRecordExist(Guid id);
 }
