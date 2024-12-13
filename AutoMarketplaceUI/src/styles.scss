@@ -19,6 +19,10 @@ body {
   border: 2px solid white;
   border-radius: 5px;
   font-size: medium;
+
+  &:disabled {
+    opacity: 0.7;
+  }
 }
 
 .mat-mdc-button.custom-link-button {
@@ -33,4 +37,10 @@ body {
     background-color: white !important;
     color: #440000 !important;
   }
+}
+
+.custom-secondary-button {
+  color: #440000 !important;
+  border-radius: 5px !important;
+  font-size: small !important;
 }

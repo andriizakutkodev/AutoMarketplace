@@ -1,0 +1,33 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>Sign in</mat-card-header>
+    <mat-card-content>
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email">
+          @if (hasError(loginForm.controls['email'], 'email')) {
+            <mat-error>Please enter a valid email address.</mat-error>
+          }
+          @if (hasError(loginForm.controls['email'], 'required')) {
+            <mat-error>Email is <strong>required.</strong></mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+          @if (hasError(loginForm.controls['password'], 'required')) {
+            <mat-error>Password is <strong>required.</strong></mat-error>
+          }
+        </mat-form-field>
+        <button mat-button class="custom-button" type="submit" [disabled]="isLoginButtonDisabled()">Login</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="additional-buttons">
+        <button mat-button class="custom-secondary-button">Register</button>
+        <button mat-button class="custom-secondary-button">Forgot password</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
