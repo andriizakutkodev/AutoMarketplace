@@ -27,4 +27,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> ops)
     /// Gets or sets the db set of users.
     /// </summary>
     public DbSet<User> Users { get; set; }
+
+    /// <summary>
+    /// Gets or sets the db set of images.
+    /// </summary>
+    public DbSet<Image> Images { get; set; }
 }

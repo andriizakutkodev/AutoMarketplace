@@ -61,4 +61,9 @@ public class Announcement : BaseEntity
     /// Gets or sets the owner for the announcement.
     /// </summary>
     public virtual User Owner { get; set; }
+
+    /// <summary>
+    /// Gets or sets a collection of images.
+    /// </summary>
+    public virtual ICollection<Image> Images { get; set; }
 }

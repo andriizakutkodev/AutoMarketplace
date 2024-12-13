@@ -36,11 +36,6 @@ public class User : BaseEntity
     public byte[] Salt { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL of the user's profile image.
-    /// </summary>
-    public string ImgUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the date and time when the user was created.
     /// </summary>
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
@@ -49,6 +44,11 @@ public class User : BaseEntity
     /// Gets or sets the date and time when the user was last updated.
     /// </summary>
     public DateTimeOffset? UpdatedAt { get; set; }
+
+    /// <summary>
+    /// Gets or sets the image for the User.
+    /// </summary>
+    public virtual Image Image { get; set; }
 
     /// <summary>
     /// Gets or sets the posts data for the user.
