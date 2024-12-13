@@ -28,10 +28,12 @@ public class ImageManageService : IImageManageService
     /// Uploads an image to Cloudinary with the specified public ID.
     /// </summary>
     /// <param name="file">The image file to be uploaded.</param>
-    /// <param name="publicId">The public ID to assign to the uploaded image.</param>
+    /// <param name="imagesFolderName">The folder name to the uploaded image.</param>
     /// <returns>A task representing the asynchronous operation, containing the result with the URL of the uploaded image.</returns>
-    public async Task<Result<Image>> Upload(IFormFile file, string publicId)
+    public async Task<Result<Image>> Upload(IFormFile file, string imagesFolderName)
     {
+        var publicId = $"{imagesFolderName}/{Guid.NewGuid()}";
+
         using var stream = file.OpenReadStream();
 
         var uploadParams = new ImageUploadParams
