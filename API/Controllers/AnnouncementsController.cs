@@ -47,7 +47,7 @@ public class AnnouncementsController(
     /// <returns>
     /// A success result if the announcement is created successfully; otherwise, a bad request or validation error result.
     /// </returns>
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(CreateAnnouncementDto createAnnouncementDto)
     {
         var result = await createAnnouncementDtoValidator.ValidateAsync(createAnnouncementDto);
@@ -67,7 +67,7 @@ public class AnnouncementsController(
     /// <returns>
     /// A success result if the announcement is updated successfully; otherwise, a bad request or validation error result.
     /// </returns>
-    [HttpPut]
+    [HttpPut("update")]
     public async Task<IActionResult> Update(UpdateAnnouncementDto updateAnnouncementDto)
     {
         var result = await updateAnnouncementDtoValidator.ValidateAsync(updateAnnouncementDto);
@@ -87,7 +87,7 @@ public class AnnouncementsController(
     /// <returns>
     /// A success result if the announcement is deleted successfully; otherwise, a not found or bad request result.
     /// </returns>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         return HandleResult(await service.Delete(id));

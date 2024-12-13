@@ -52,7 +52,7 @@ public class VehicleModelsController(
     /// <remarks>
     /// Validates the input DTO using the <see cref="IValidator{T}"/> for <see cref="CreateVehicleModelDto"/> before calling the service layer.
     /// </remarks>
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(CreateVehicleModelDto createVehicleModelDto)
     {
         var result = await createVehicleDtoValidator.ValidateAsync(createVehicleModelDto);
@@ -75,7 +75,7 @@ public class VehicleModelsController(
     /// <remarks>
     /// Validates the input DTO using the <see cref="IValidator{T}"/> for <see cref="UpdateVehicleModelDto"/> before calling the service layer.
     /// </remarks>
-    [HttpPut]
+    [HttpPut("update")]
     public async Task<IActionResult> Update(UpdateVehicleModelDto updateVehicleModelDto)
     {
         var result = await updateVehicleDtoValidator.ValidateAsync(updateVehicleModelDto);
@@ -95,7 +95,7 @@ public class VehicleModelsController(
     /// <returns>
     /// An <see cref="IActionResult"/> indicating the result of the delete operation.
     /// </returns>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         return HandleResult(await service.Delete(id));
