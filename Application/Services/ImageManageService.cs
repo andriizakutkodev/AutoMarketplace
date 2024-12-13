@@ -4,6 +4,7 @@ using System.Net;
 using Application.Interfacesl;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Domain.Entities;
 using Infrastructure.Results;
 using Microsoft.AspNetCore.Http;
 
@@ -29,7 +30,7 @@ public class ImageManageService : IImageManageService
     /// <param name="file">The image file to be uploaded.</param>
     /// <param name="publicId">The public ID to assign to the uploaded image.</param>
     /// <returns>A task representing the asynchronous operation, containing the result with the URL of the uploaded image.</returns>
-    public async Task<Result<string>> Upload(IFormFile file, string publicId)
+    public async Task<Result<Image>> Upload(IFormFile file, string publicId)
     {
         using var stream = file.OpenReadStream();
 
@@ -43,10 +44,16 @@ public class ImageManageService : IImageManageService
 
         if (uploadResult.StatusCode != HttpStatusCode.OK)
         {
-            return Result<string>.Failure(HttpStatusCode.BadRequest, $"Failed to upload image: {uploadResult.Error?.Message}");
+            return Result<Image>.Failure(HttpStatusCode.BadRequest, $"Failed to upload image: {uploadResult.Error?.Message}");
         }
 
-        return Result<string>.Success(uploadResult.SecureUrl.ToString());
+        var image = new Image
+        {
+            PublicId = publicId,
+            Url = uploadResult.SecureUrl.ToString(),
+        };
+
+        return Result<Image>.Success(image);
     }
 
     /// <summary>
