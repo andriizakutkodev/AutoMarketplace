@@ -176,6 +176,8 @@
       color: white;
       font-weight: 500;
       padding: 10px;
+      word-break: break-all;
+      text-align: end;
     }
   }
 
@@ -231,6 +233,5 @@
   .user-name {
     font-size: small;
     text-align: end;
-    word-break: break-all;
   }
 }

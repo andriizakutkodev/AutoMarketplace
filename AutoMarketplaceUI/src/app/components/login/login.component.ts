@@ -50,4 +50,8 @@ export class LoginComponent {
   isLoginButtonDisabled() {
     return this.loginForm.invalid;
   }
+
+  onRegisterClick() {
+    this.router.navigate(['register']);
+  }
 }
