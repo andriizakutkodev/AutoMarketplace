@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+
+using Application.Consts;
 using Application.Interfaces;
 using Application.Options;
 using Domain.Entities;
@@ -33,10 +35,15 @@ public class JwtService(IOptions<JwtOptions> options) : IJwtService
 
         var claims = new List<Claim>
         {
-            new (JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new (JwtRegisteredClaimNames.Email, user.Email),
-            new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new (JwtClaimNames.Sub, user.Id.ToString()),
+            new (JwtClaimNames.Email, user.Email),
+            new (JwtClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+
+        if (user.Image is not null)
+        {
+            claims.Add(new Claim(JwtClaimNames.ImgUrl, user.Image.Url));
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -2,6 +2,7 @@
 
 using Domain.Entities;
 using Infrastructure.Results;
+using Microsoft.AspNetCore.Http;
 
 /// <summary>
 /// Defines the contract for a service responsible for user-related operations such as retrieving and creating users.
@@ -25,4 +26,11 @@ public interface IUsersService
     /// A <see cref="Result"/> indicating the success or failure of the user creation process.
     /// </returns>
     Task<Result> Create(User user);
+
+    /// <summary>
+    /// Uploads an image file and returns the result containing the uploaded image object.
+    /// </summary>
+    /// <param name="file">The image file to be uploaded.</param>
+    /// <returns>A task representing the asynchronous operation, containing the result with the uploaded image object.</returns>
+    Task<Result<Image>> UploadImage(IFormFile file);
 }

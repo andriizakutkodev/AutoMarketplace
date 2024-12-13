@@ -1,5 +1,7 @@
 ﻿namespace Application.DTOs;
 
+using Microsoft.AspNetCore.Http;
+
 /// <summary>
 /// Represents the data transfer object (DTO) for user registration information.
 /// Used to encapsulate the necessary data for creating a new user.
@@ -32,7 +34,7 @@ public class RegisterDto
     public string Password { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL of the user's profile image.
+    /// Gets or sets the file for user's image.
     /// </summary>
-    public string ImgUrl { get; set; }
+    public IFormFile ImageFile { get; set; }
 }

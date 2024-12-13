@@ -61,6 +61,18 @@ public class AuthService(
         user.Password = hashPasswordResult.Data;
         user.Salt = salt;
 
+        if (registerDto.ImageFile != null && registerDto.ImageFile.Length != 0)
+        {
+            var uploadResult = await usersService.UploadImage(registerDto.ImageFile);
+
+            if (!uploadResult.IsSuccess)
+            {
+                return Result<UserInfoDto>.Failure(uploadResult.StatusCode, uploadResult.Message);
+            }
+
+            user.Image = uploadResult.Data;
+        }
+
         var createUserResult = await usersService.Create(user);
 
         if (!createUserResult.IsSuccess)

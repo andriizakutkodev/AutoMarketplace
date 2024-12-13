@@ -3,15 +3,21 @@
 using System.Net;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using Application.Interfacesl;
 using Domain.Entities;
 using Infrastructure.Results;
+using Microsoft.AspNetCore.Http;
 using Persistence.Interfaces;
 
 /// <summary>
 /// Represents the service responsible for managing business logic related to <see cref="User"/> entities.
 /// </summary>
-public class UsersService(IUsersRepository repository) : IUsersService
+public class UsersService(
+    IUsersRepository repository,
+    IImageManageService imageManageService) : IUsersService
 {
+    private const string IMAGESFOLDERNAME = $"Images/Users";
+
     /// <summary>
     /// Creates a new <see cref="User"/> entity.
     /// </summary>
@@ -54,5 +60,30 @@ public class UsersService(IUsersRepository repository) : IUsersService
         }
 
         return Result<User>.Success(await repository.GetByEmail(email));
+    }
+
+    /// <summary>
+    /// Uploads an image file and returns the result containing the uploaded image object.
+    /// </summary>
+    /// <param name="file">The image file to be uploaded.</param>
+    /// <returns>A task representing the asynchronous operation, containing the result with the uploaded image object.</returns>
+    public async Task<Result<Image>> UploadImage(IFormFile file)
+    {
+        var publicId = $"{IMAGESFOLDERNAME}/{Guid.NewGuid()}";
+
+        var uploadResult = await imageManageService.Upload(file, publicId);
+
+        if (uploadResult.IsSuccess)
+        {
+            var image = new Image
+            {
+                PublicId = publicId,
+                Url = uploadResult.Data,
+            };
+
+            return Result<Image>.Success(image);
+        }
+
+        return Result<Image>.Failure(uploadResult.StatusCode, uploadResult.Message);
     }
 }

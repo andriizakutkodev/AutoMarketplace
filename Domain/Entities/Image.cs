@@ -16,6 +16,11 @@ public class Image : BaseEntity
     public string Url { get; set; }
 
     /// <summary>
+    /// Gets or sets the public id for image.
+    /// </summary>
+    public string PublicId { get; set; }
+
+    /// <summary>
     /// Gets or sets the collection of announcements associated with this image.
     /// </summary>
     public virtual ICollection<Announcement> Announcements { get; set; }

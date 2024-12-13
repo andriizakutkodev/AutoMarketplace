@@ -23,6 +23,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateAnnouncementDto, Announcement>();
         CreateMap<UpdateAnnouncementDto, Announcement>();
         CreateMap<RegisterDto, User>();
-        CreateMap<User, UserInfoDto>();
+        CreateMap<User, UserInfoDto>()
+            .ForMember(x => x.ImgUrl, src => src.MapFrom(x => x.Image.Url));
     }
 }

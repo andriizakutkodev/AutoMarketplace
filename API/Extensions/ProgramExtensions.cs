@@ -13,8 +13,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using Application.DTOs;
 using Application.Mappers;
+using CloudinaryDotNet;
+using Application.Interfacesl;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -48,6 +49,11 @@ public static class ProgramExtensions
     public const string JWTSECRETKEY = "Jwt:SecretKey";
 
     /// <summary>
+    /// The cloudinary section key.
+    /// </summary>
+    public const string CLOUDINARYSECTIONKEY = "Cloudinary";
+
+    /// <summary>
     /// Registers application dependencies.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to register dependencies with.</param>
@@ -63,6 +69,7 @@ public static class ProgramExtensions
         RegisterSwaggerConfiguration(services);
         RegisterCors(services);
         RegisterAutoMapper(services);
+        RegisterCloudinary(services, configuration);
     }
 
     private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -85,6 +92,7 @@ public static class ProgramExtensions
         services.AddSingleton<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IVehicleModelsService, VehicleModelsService>();
+        services.AddScoped<IImageManageService, ImageManageService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
@@ -102,6 +110,7 @@ public static class ProgramExtensions
     private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtOptions>(configuration.GetSection(JWTSECTIONKEY));
+        services.Configure<CloudinaryOptions>(configuration.GetSection(CLOUDINARYSECTIONKEY));
     }
 
     private static void RegisterAuthentication(IServiceCollection services, IConfiguration configuration)
@@ -175,5 +184,14 @@ public static class ProgramExtensions
     private static void RegisterAutoMapper(IServiceCollection services)
     {
         services.AddAutoMapper(typeof(AutoMapperProfile));
+    }
+
+    private static void RegisterCloudinary(IServiceCollection services, IConfiguration configuration)
+    {
+        var cloudinaryOptions = configuration.GetSection(CLOUDINARYSECTIONKEY).Get<CloudinaryOptions>() ?? throw new Exception("Cloudinary options is not provided.");
+
+        var account = new Account(cloudinaryOptions.CloudName, cloudinaryOptions.ApiKey, cloudinaryOptions.ApiSecret);
+
+        services.AddSingleton(new Cloudinary(account));
     }
 }
