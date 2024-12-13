@@ -8,7 +8,7 @@ public class Image : BaseEntity
     /// <summary>
     /// Gets or sets a value indicating whether this image is the main image.
     /// </summary>
-    public bool IsMain { get; set; }
+    public bool IsMain { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the URL of the image.
