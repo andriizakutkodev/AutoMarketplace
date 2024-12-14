@@ -91,7 +91,7 @@ public static class ProgramExtensions
         services.AddSingleton<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IVehicleModelService, VehicleModelService>();
-        services.AddScoped<IImageManageService, ImageManageService>();
+        services.AddScoped<IFileStorageService, FileStorageService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)

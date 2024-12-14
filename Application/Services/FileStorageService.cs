@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// Service for managing image operations using Cloudinary.
 /// </summary>
-public class ImageManageService : IImageManageService
+public class FileStorageService : IFileStorageService
 {
     private readonly Cloudinary _cloudinary;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ImageManageService"/> class with a Cloudinary instance.
+    /// Initializes a new instance of the <see cref="FileStorageService"/> class with a Cloudinary instance.
     /// </summary>
     /// <param name="cloudinary">The Cloudinary instance for handling image operations.</param>
-    public ImageManageService(Cloudinary cloudinary)
+    public FileStorageService(Cloudinary cloudinary)
     {
         _cloudinary = cloudinary;
     }

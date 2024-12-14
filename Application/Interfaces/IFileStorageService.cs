@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// Provides functionality to manage image operations such as uploading and deleting images.
 /// </summary>
-public interface IImageManageService
+public interface IFileStorageService
 {
     /// <summary>
     /// Uploads an image file and returns the result containing the URL of the uploaded image.
