@@ -1,7 +1,7 @@
 ﻿namespace Application.Services;
 
 using System.Net;
-using Application.Interfacesl;
+using Application.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Domain.Entities;

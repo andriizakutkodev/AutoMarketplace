@@ -15,7 +15,6 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using Application.Mappers;
 using CloudinaryDotNet;
-using Application.Interfacesl;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.

@@ -32,9 +32,4 @@ public class RegisterDto
     /// Gets or sets the password of the user to be registered.
     /// </summary>
     public string Password { get; set; }
-
-    /// <summary>
-    /// Gets or sets the file for user's image.
-    /// </summary>
-    public IFormFile ImageFile { get; set; }
 }

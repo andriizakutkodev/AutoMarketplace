@@ -2,7 +2,6 @@
 
 using Application.DTOs;
 using Application.Interfaces;
-using Application.Interfacesl;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Results;
@@ -14,8 +13,7 @@ public class AuthService(
     IUsersService usersService,
     IPasswordHandlerService passwordHandler,
     IJwtService jwtService,
-    IMapper mapper,
-    IImageManageService imageManageService) : IAuthService
+    IMapper mapper) : IAuthService
 {
     /// <summary>
     /// Logs in a user by validating their credentials and generating a JWT token.
@@ -62,18 +60,7 @@ public class AuthService(
 
         user.Password = hashPasswordResult.Data;
         user.Salt = salt;
-
-        if (registerDto.ImageFile != null && registerDto.ImageFile.Length != 0)
-        {
-            var uploadResult = await imageManageService.Upload(registerDto.ImageFile, "Images/Users");
-
-            if (!uploadResult.IsSuccess)
-            {
-                return Result<UserInfoDto>.Failure(uploadResult.StatusCode, uploadResult.Message);
-            }
-
-            user.Image = uploadResult.Data;
-        }
+        user.Image = default;
 
         var createUserResult = await usersService.Create(user);
 

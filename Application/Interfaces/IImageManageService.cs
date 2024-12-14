@@ -1,4 +1,4 @@
-﻿namespace Application.Interfacesl;
+﻿namespace Application.Interfaces;
 
 using Domain.Entities;
 using Infrastructure.Results;
