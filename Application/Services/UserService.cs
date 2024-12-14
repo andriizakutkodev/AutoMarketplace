@@ -10,7 +10,7 @@ using Persistence.Interfaces;
 /// <summary>
 /// Represents the service responsible for managing business logic related to <see cref="User"/> entities.
 /// </summary>
-public class UsersService(IUsersRepository repository) : IUsersService
+public class UserService(IUsersRepository repository) : IUserService
 {
     /// <summary>
     /// Creates a new <see cref="User"/> entity.

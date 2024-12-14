@@ -84,21 +84,21 @@ public static class ProgramExtensions
 
     private static void RegisterServices(IServiceCollection services)
     {
-        services.AddScoped<IAnnouncementsService, AnnouncementsService>();
+        services.AddScoped<IAnnouncementService, AnnouncementService>();
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IUsersService, UsersService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddSingleton<IPasswordHandlerService, PasswordHandlerService>();
         services.AddSingleton<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IVehicleModelsService, VehicleModelsService>();
+        services.AddScoped<IVehicleModelService, VehicleModelService>();
         services.AddScoped<IImageManageService, ImageManageService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
     {
-        services.AddScoped<IAnnouncementsRepository, AnnouncementsRepository>();
+        services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
-        services.AddScoped<IVehicleModelsRepository, VehicleModelsRepository>();
+        services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)

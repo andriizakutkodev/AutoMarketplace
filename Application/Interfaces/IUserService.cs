@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// Defines the contract for a service responsible for user-related operations such as retrieving and creating users.
 /// </summary>
-public interface IUsersService
+public interface IUserService
 {
     /// <summary>
     /// Retrieves a user by their email address.

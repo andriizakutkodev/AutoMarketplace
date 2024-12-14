@@ -6,7 +6,7 @@ using Infrastructure.Results;
 /// <summary>
 /// Service interface for managing vehicle models.
 /// </summary>
-public interface IVehicleModelsService
+public interface IVehicleModelService
 {
     /// <summary>
     /// Retrieves all vehicle models.

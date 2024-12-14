@@ -6,7 +6,7 @@ using Infrastructure.Results;
 /// <summary>
 /// Defines a service interface for managing announcements.
 /// </summary>
-public interface IAnnouncementsService
+public interface IAnnouncementService
 {
     /// <summary>
     /// Retrieves all announcements.

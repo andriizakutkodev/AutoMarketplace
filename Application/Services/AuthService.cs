@@ -10,7 +10,7 @@ using Infrastructure.Results;
 /// Service responsible for handling user authentication operations, including login and registration.
 /// </summary>
 public class AuthService(
-    IUsersService usersService,
+    IUserService usersService,
     IPasswordHandlerService passwordHandler,
     IJwtService jwtService,
     IMapper mapper) : IAuthService

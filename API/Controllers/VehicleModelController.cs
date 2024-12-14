@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 /// </summary>
 /// <remarks>
 /// This controller handles operations for creating, updating, retrieving, and deleting vehicle models.
-/// It validates the input DTOs using the provided validators and uses the <see cref="IVehicleModelsService"/> for business logic.
+/// It validates the input DTOs using the provided validators and uses the <see cref="IVehicleModelService"/> for business logic.
 /// </remarks>
-public class VehicleModelsController(
-    IVehicleModelsService service,
+public class VehicleModelController(
+    IVehicleModelService service,
     IValidator<CreateVehicleModelDto> createVehicleDtoValidator,
     IValidator<UpdateVehicleModelDto> updateVehicleDtoValidator) : BaseAPIController
 {
@@ -52,7 +52,7 @@ public class VehicleModelsController(
     /// <remarks>
     /// Validates the input DTO using the <see cref="IValidator{T}"/> for <see cref="CreateVehicleModelDto"/> before calling the service layer.
     /// </remarks>
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<IActionResult> Create(CreateVehicleModelDto createVehicleModelDto)
     {
         var result = await createVehicleDtoValidator.ValidateAsync(createVehicleModelDto);
@@ -75,7 +75,7 @@ public class VehicleModelsController(
     /// <remarks>
     /// Validates the input DTO using the <see cref="IValidator{T}"/> for <see cref="UpdateVehicleModelDto"/> before calling the service layer.
     /// </remarks>
-    [HttpPut("update")]
+    [HttpPut]
     public async Task<IActionResult> Update(UpdateVehicleModelDto updateVehicleModelDto)
     {
         var result = await updateVehicleDtoValidator.ValidateAsync(updateVehicleModelDto);
@@ -95,7 +95,7 @@ public class VehicleModelsController(
     /// <returns>
     /// An <see cref="IActionResult"/> indicating the result of the delete operation.
     /// </returns>
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         return HandleResult(await service.Delete(id));

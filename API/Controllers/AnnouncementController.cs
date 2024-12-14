@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 /// Controller for managing announcements in the system.
 /// Provides endpoints to create, retrieve, update, and delete announcements.
 /// </summary>
-public class AnnouncementsController(
-    IAnnouncementsService service,
+public class AnnouncementController(
+    IAnnouncementService service,
     IValidator<CreateAnnouncementDto> createAnnouncementDtoValidator,
     IValidator<UpdateAnnouncementDto> updateAnnouncementDtoValidator) : BaseAPIController
 {

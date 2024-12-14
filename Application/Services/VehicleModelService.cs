@@ -12,9 +12,9 @@ using Persistence.Interfaces;
 /// Service for managing vehicle models, including creating, updating,
 /// retrieving, and deleting vehicle model data.
 /// </summary>
-public class VehicleModelsService(
-    IVehicleModelsRepository repository,
-    IMapper mapper) : IVehicleModelsService
+public class VehicleModelService(
+    IVehicleModelRepository repository,
+    IMapper mapper) : IVehicleModelService
 {
     /// <summary>
     /// Retrieves all vehicle models.

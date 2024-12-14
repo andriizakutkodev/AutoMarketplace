@@ -11,14 +11,14 @@ using Infrastructure.Results;
 using Persistence.Interfaces;
 
 /// <summary>
-/// Implements the <see cref="IAnnouncementsService"/> interface to handle business logic for managing posts.
+/// Implements the <see cref="IAnnouncementService"/> interface to handle business logic for managing posts.
 /// Provides functionality for creating, retrieving, updating, and deleting posts by interacting with the repository.
 /// </summary>
-public class AnnouncementsService(
-    IAnnouncementsRepository repository,
-    IVehicleModelsRepository vehicleModelsRepository,
+public class AnnouncementService(
+    IAnnouncementRepository repository,
+    IVehicleModelRepository vehicleModelsRepository,
     IUsersRepository usersRepository,
-    IMapper mapper) : IAnnouncementsService
+    IMapper mapper) : IAnnouncementService
 {
     /// <summary>
     /// Retrieves all announcements and maps them to a collection of <see cref="AnnouncementDto"/>.
