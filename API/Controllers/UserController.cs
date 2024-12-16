@@ -17,7 +17,7 @@ public class UserController(IImageService imageService) : BaseAPIController
     /// An <see cref="IActionResult"/> indicating the outcome of the upload operation.
     /// Returns a success or failure response based on the result of the image upload.
     /// </returns>
-    [HttpPost("image")]
+    [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImage(UploadImageForUserDto uploadImageForUserDto)
     {
         return HandleResult(await imageService.UploadImageForUser(uploadImageForUserDto));
@@ -31,7 +31,7 @@ public class UserController(IImageService imageService) : BaseAPIController
     /// An <see cref="IActionResult"/> indicating the outcome of the image removal operation.
     /// Returns a success or failure response based on whether the image was successfully removed.
     /// </returns>
-    [HttpDelete("{id}/image")]
+    [HttpDelete("remove-image/{id}")]
     public async Task<IActionResult> RemoveImage(Guid id)
     {
         return HandleResult(await imageService.RemoveImageForUser(id));
