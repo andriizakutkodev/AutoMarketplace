@@ -11,19 +11,19 @@ using Persistence.Interfaces;
 /// Inherits common CRUD operations from <see cref="GenericRepository{T}"/>.
 /// </summary>
 /// <remarks>
-/// Initializes a new instance of the <see cref="UsersRepository"/> class with the specified database context.
+/// Initializes a new instance of the <see cref="UserRepository"/> class with the specified database context.
 /// </remarks>
 /// <param name="context">The database context used to interact with the <see cref="User"/> table.</param>
-public class UsersRepository : GenericRepository<User>, IUsersRepository
+public class UserRepository : GenericRepository<User>, IUserRepository
 {
     private readonly AppDbContext _context;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UsersRepository"/> class
+    /// Initializes a new instance of the <see cref="UserRepository"/> class
     /// using the specified database context.
     /// </summary>
     /// <param name="context">The <see cref="AppDbContext"/> instance used to interact with the database.</param>
-    public UsersRepository(AppDbContext context)
+    public UserRepository(AppDbContext context)
         : base(context)
     {
         _context = context;

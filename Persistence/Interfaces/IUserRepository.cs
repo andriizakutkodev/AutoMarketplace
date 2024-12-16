@@ -6,7 +6,7 @@ using Domain.Entities;
 /// Represents a repository interface for managing <see cref="User"/> entities.
 /// Extends the generic repository interface with methods specific to <see cref="User"/>.
 /// </summary>
-public interface IUsersRepository : IGenericRepository<User>
+public interface IUserRepository : IGenericRepository<User>
 {
     /// <summary>
     /// Checks if a given email address is already associated with an existing user in the repository.

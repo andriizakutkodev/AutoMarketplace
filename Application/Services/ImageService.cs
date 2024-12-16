@@ -15,7 +15,7 @@ using Persistence.Interfaces;
 /// <param name="announcementRepository">Repository for accessing announcement data.</param>
 public class ImageService(
     IFileStorageService fileStorageService,
-    IUsersRepository usersRepository,
+    IUserRepository usersRepository,
     IImageRepository imageRepository,
     IAnnouncementRepository announcementRepository) : IImageService
 {

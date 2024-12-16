@@ -17,7 +17,7 @@ using Persistence.Interfaces;
 public class AnnouncementService(
     IAnnouncementRepository repository,
     IVehicleModelRepository vehicleModelsRepository,
-    IUsersRepository usersRepository,
+    IUserRepository usersRepository,
     IMapper mapper) : IAnnouncementService
 {
     /// <summary>

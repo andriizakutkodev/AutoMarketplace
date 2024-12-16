@@ -98,7 +98,7 @@ public static class ProgramExtensions
     private static void RegisterRepositories(IServiceCollection services)
     {
         services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
-        services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
     }
