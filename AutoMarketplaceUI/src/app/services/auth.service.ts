@@ -51,7 +51,20 @@ export class AuthService {
    * @returns Observable containing a GenericApiResponse wrapping a User object if successful.
    */
   register(registerDto: RegisterDto): Observable<GenericApiResponse<User>> {
-    return this.httpClient.post<GenericApiResponse<User>>(this.baseUrl + this.registerUrl, registerDto);
+    return new Observable((observer) => {
+      this.httpClient.post<GenericApiResponse<User>>(this.baseUrl + this.registerUrl, registerDto)
+        .subscribe({
+          next: (response) => {
+            const token = response.data?.token;
+            if (token) {
+              this.setAuthToken(token);
+            }
+            observer.next(response);
+            observer.complete();
+          },
+          error: (err) => observer.error(err),
+        });
+    });
   }
 
   /**
