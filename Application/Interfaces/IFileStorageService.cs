@@ -13,9 +13,8 @@ public interface IFileStorageService
     /// Uploads an image file and returns the result containing the URL of the uploaded image.
     /// </summary>
     /// <param name="file">The image file to be uploaded.</param>
-    /// <param name="imagesFolderName">The images folder name to store.</param>
     /// <returns>A task representing the asynchronous operation, containing the result with the URL of the uploaded image.</returns>
-    Task<Result<Image>> Upload(IFormFile file, string imagesFolderName);
+    Task<Result<Image>> Upload(IFormFile file);
 
     /// <summary>
     /// Deletes an image from the server using its URL.

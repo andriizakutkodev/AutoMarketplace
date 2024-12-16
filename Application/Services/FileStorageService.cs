@@ -28,11 +28,10 @@ public class FileStorageService : IFileStorageService
     /// Uploads an image to Cloudinary with the specified public ID.
     /// </summary>
     /// <param name="file">The image file to be uploaded.</param>
-    /// <param name="imagesFolderName">The folder name to the uploaded image.</param>
     /// <returns>A task representing the asynchronous operation, containing the result with the URL of the uploaded image.</returns>
-    public async Task<Result<Image>> Upload(IFormFile file, string imagesFolderName)
+    public async Task<Result<Image>> Upload(IFormFile file)
     {
-        var publicId = $"{imagesFolderName}/{Guid.NewGuid()}";
+        var publicId = Guid.NewGuid().ToString();
 
         using var stream = file.OpenReadStream();
 
