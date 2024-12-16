@@ -2,11 +2,13 @@
 
 using Application.DTOs;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// Controller for handling actions for users.
 /// </summary>
+[Authorize]
 public class UserController(IImageService imageService) : BaseAPIController
 {
     /// <summary>

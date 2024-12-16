@@ -1,8 +1,11 @@
 ﻿namespace API.Controllers;
 
+using API.Extensions;
+
 using Application.DTOs;
 using Application.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
@@ -57,5 +60,21 @@ public class AuthController(
         }
 
         return HandleResult(await service.Login(loginDto));
+    }
+
+    /// <summary>
+    /// Retrieves the information of the currently authenticated user.
+    /// </summary>
+    /// <returns>
+    /// An <see cref="IActionResult"/> containing the user's information if the operation is successful.
+    /// </returns>
+    /// <remarks>
+    /// The user must be authenticated to access this endpoint.
+    /// </remarks>
+    [Authorize]
+    [HttpGet("user-info")]
+    public async Task<IActionResult> GetUserInfo()
+    {
+        return HandleResult(await service.GetUserInfo(HttpContext.GetLoggedUserId()));
     }
 }

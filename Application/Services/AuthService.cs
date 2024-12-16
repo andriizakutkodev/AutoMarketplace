@@ -1,5 +1,6 @@
 ﻿namespace Application.Services;
 
+using System;
 using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
@@ -7,7 +8,6 @@ using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Data;
 using Infrastructure.Results;
-
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -73,6 +73,24 @@ public class AuthService(AppDbContext context,
         }
 
         return PrepareUserInfoResult(user);
+    }
+
+    /// <summary>
+    /// Retrieves user information based on the provided user ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the user.</param>
+    /// <returns>
+    /// A <see cref="Task{TResult}"/> representing the asynchronous operation.
+    /// The result contains a <see cref="Result{T}"/> object with a <see cref="UserInfoDto"/>
+    /// containing user information if the operation is successful.
+    /// </returns>
+    public async Task<Result<UserInfoDto>> GetUserInfo(Guid id)
+    {
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+        var userInfoDto = mapper.Map<UserInfoDto>(user);
+
+        return Result<UserInfoDto>.Success(userInfoDto);
     }
 
     /// <summary>

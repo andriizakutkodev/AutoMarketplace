@@ -3,6 +3,7 @@
 using Application.DTOs;
 using Application.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 /// This controller handles operations for creating, updating, retrieving, and deleting vehicle models.
 /// It validates the input DTOs using the provided validators and uses the <see cref="IVehicleModelService"/> for business logic.
 /// </remarks>
+[Authorize]
 public class VehicleModelController(
     IVehicleModelService service,
     IValidator<CreateVehicleModelDto> createVehicleDtoValidator,

@@ -1,15 +1,16 @@
 ﻿namespace API.Controllers;
 
-using API.Extensions;
 using Application.DTOs;
 using Application.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// Controller for managing announcements in the system.
 /// Provides endpoints to create, retrieve, update, and delete announcements.
 /// </summary>
+[Authorize]
 public class AnnouncementController(
     IAnnouncementService service,
     IValidator<CreateAnnouncementDto> createAnnouncementDtoValidator,
