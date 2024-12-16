@@ -38,7 +38,7 @@ public class ImageService(AppDbContext context, IFileStorageService fileStorageS
                 return Result.Failure(HttpStatusCode.NotFound, "User was not found.");
             }
 
-            var uploadResult = await fileStorageService.Upload(uploadImageForUserDto.ImageFile, "user/images");
+            var uploadResult = await fileStorageService.Upload(uploadImageForUserDto.ImageFile);
 
             if (!uploadResult.IsSuccess)
             {
