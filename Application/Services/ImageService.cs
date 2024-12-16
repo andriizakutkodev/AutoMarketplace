@@ -6,7 +6,6 @@ using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure.Data;
 using Infrastructure.Results;
-
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -32,7 +31,7 @@ public class ImageService(AppDbContext context, IFileStorageService fileStorageS
 
         try
         {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == uploadImageForUserDto.UserEmail);
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == uploadImageForUserDto.Id);
 
             if (user is null)
             {
@@ -78,13 +77,13 @@ public class ImageService(AppDbContext context, IFileStorageService fileStorageS
     /// <summary>
     /// Removes the image associated with a specific user from both storage and the user's profile.
     /// </summary>
-    /// <param name="userEmail">The email of the user whose image will be removed.</param>
+    /// <param name="userId">The unique identifier of the user whose image will be removed.</param>
     /// <returns>
     /// A <see cref="Result"/> indicating success or failure of the operation.
     /// Returns a failure if the user does not exist, the image fails to delete from storage,
     /// or the user update operation is unsuccessful.
     /// </returns>
-    public async Task<Result> RemoveImageForUser(string userEmail)
+    public async Task<Result> RemoveImageForUser(Guid userId)
     {
         var isImageDeleted = default(bool);
         var isUserUpdated = default(bool);
@@ -93,7 +92,7 @@ public class ImageService(AppDbContext context, IFileStorageService fileStorageS
 
         try
         {
-            user = await context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+            user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user is null)
             {

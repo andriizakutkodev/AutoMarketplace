@@ -15,8 +15,8 @@ public class UploadImageForUserDtoValidator : AbstractValidator<UploadImageForUs
     /// </summary>
     public UploadImageForUserDtoValidator()
     {
-        RuleFor(x => x.UserEmail)
-            .NotEmpty().NotNull().WithMessage("User's email is required.");
+        RuleFor(x => x.Id)
+            .NotEmpty().NotNull().WithMessage("User's id is required.");
         RuleFor(x => x.ImageFile)
             .NotNull().WithMessage("Image file is required.")
             .Must(IsValidFileType).WithMessage("Invalid file type. Only PNG and JPEG images are allowed.")

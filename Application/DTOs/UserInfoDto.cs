@@ -6,6 +6,11 @@
 public class UserInfoDto
 {
     /// <summary>
+    /// Gets or sets the unique identifier of user.
+    /// </summary>
+    public Guid Id { get; set; }
+
+    /// <summary>
     /// Gets or sets the email address of the user.
     /// </summary>
     public string Email { get; set; }

@@ -26,14 +26,14 @@ public class UserController(IImageService imageService) : BaseAPIController
     /// <summary>
     /// Removes the image for a specific user.
     /// </summary>
-    /// <param name="userEmail">The email of the user whose image will be removed.</param>
+    /// <param name="userId">The unique identifier of the user whose image will be removed.</param>
     /// <returns>
     /// An <see cref="IActionResult"/> indicating the outcome of the image removal operation.
     /// Returns a success or failure response based on whether the image was successfully removed.
     /// </returns>
-    [HttpDelete("{userEmail}/image")]
-    public async Task<IActionResult> RemoveImage(string userEmail)
+    [HttpDelete("{id}/image")]
+    public async Task<IActionResult> RemoveImage(Guid id)
     {
-        return HandleResult(await imageService.RemoveImageForUser(userEmail));
+        return HandleResult(await imageService.RemoveImageForUser(id));
     }
 }

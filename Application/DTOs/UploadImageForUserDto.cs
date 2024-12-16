@@ -10,7 +10,7 @@ public class UploadImageForUserDto
     /// <summary>
     /// Gets or sets the email of the user.
     /// </summary>
-    public string UserEmail { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
     /// Gets or sets the image file to be uploaded.

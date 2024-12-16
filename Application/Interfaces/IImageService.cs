@@ -18,9 +18,9 @@ public interface IImageService
     /// <summary>
     /// Removes the uploaded image associated with a specific user.
     /// </summary>
-    /// <param name="userEmail">The email of the user whose image is to be removed.</param>
+    /// <param name="userId">The unique identifier of the user whose image is to be removed.</param>
     /// <returns>A <see cref="Result"/> indicating the success or failure of the operation.</returns>
-    Task<Result> RemoveImageForUser(string userEmail);
+    Task<Result> RemoveImageForUser(Guid userId);
 
     /// <summary>
     /// Uploads multiple images for a specific announcement.
