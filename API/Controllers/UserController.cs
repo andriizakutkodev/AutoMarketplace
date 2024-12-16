@@ -26,7 +26,7 @@ public class UserController(IImageService imageService) : BaseAPIController
     /// <summary>
     /// Removes the image for a specific user.
     /// </summary>
-    /// <param name="userId">The unique identifier of the user whose image will be removed.</param>
+    /// <param name="id">The unique identifier of the user whose image will be removed.</param>
     /// <returns>
     /// An <see cref="IActionResult"/> indicating the outcome of the image removal operation.
     /// Returns a success or failure response based on whether the image was successfully removed.
