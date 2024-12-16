@@ -5,16 +5,15 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Data;
 using Infrastructure.Results;
-using Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Service for managing vehicle models, including creating, updating,
 /// retrieving, and deleting vehicle model data.
 /// </summary>
-public class VehicleModelService(
-    IVehicleModelRepository repository,
-    IMapper mapper) : IVehicleModelService
+public class VehicleModelService(AppDbContext context, IMapper mapper) : IVehicleModelService
 {
     /// <summary>
     /// Retrieves all vehicle models.
@@ -22,7 +21,7 @@ public class VehicleModelService(
     /// <returns>A result containing a collection of VehicleModelDto objects.</returns>
     public async Task<Result<ICollection<VehicleModelDto>>> GetAll()
     {
-        var vehicleModels = await repository.GetAll();
+        var vehicleModels = await context.VehicleModels.ToListAsync();
 
         var vehicleModelDtos = vehicleModels.Select(mapper.Map<VehicleModelDto>).ToList();
 
@@ -36,9 +35,9 @@ public class VehicleModelService(
     /// <returns>A result containing the VehicleModelDto object if found, or a failure result if not found.</returns>
     public async Task<Result<VehicleModelDto>> GetById(Guid id)
     {
-        var (exists, vehicleModel) = await repository.IsRecordExist(id);
+        var vehicleModel = await context.VehicleModels.FirstOrDefaultAsync(vm => vm.Id == id);
 
-        if (!exists)
+        if (vehicleModel is null)
         {
             return Result<VehicleModelDto>.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
@@ -57,7 +56,9 @@ public class VehicleModelService(
     {
         var vehicleModelToCreate = mapper.Map<VehicleModel>(createVehicleModelDto);
 
-        var isCreated = await repository.Create(vehicleModelToCreate);
+        context.VehicleModels.Add(vehicleModelToCreate);
+
+        var isCreated = await context.SaveChangesAsync() > 0;
 
         return isCreated ? Result.Success() : Result.Failure(HttpStatusCode.BadRequest, "The vehicle model was not created.");
     }
@@ -69,16 +70,18 @@ public class VehicleModelService(
     /// <returns>A success result if updated, or a failure result with the reason if update fails.</returns>
     public async Task<Result> Update(UpdateVehicleModelDto updateVehicleModelDto)
     {
-        var (exists, vehicleModelToUpdate) = await repository.IsRecordExist(updateVehicleModelDto.Id);
+        var vehicleModelToUpdate = await context.VehicleModels.FirstOrDefaultAsync(vm => vm.Id == updateVehicleModelDto.Id);
 
-        if (!exists)
+        if (vehicleModelToUpdate is null)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
         mapper.Map(updateVehicleModelDto, vehicleModelToUpdate);
 
-        var isUpdated = await repository.Update(vehicleModelToUpdate);
+        context.VehicleModels.Update(vehicleModelToUpdate);
+
+        var isUpdated = await context.SaveChangesAsync() > 0;
 
         return isUpdated ? Result.Success() : Result.Failure(HttpStatusCode.BadRequest, "The vehicle model was not updated.");
     }
@@ -90,14 +93,16 @@ public class VehicleModelService(
     /// <returns>A success result if deleted, or a failure result with the reason if deletion fails.</returns>
     public async Task<Result> Delete(Guid id)
     {
-        var (exists, vehicleModelToDelete) = await repository.IsRecordExist(id);
+        var vehicleModelToDelete = await context.VehicleModels.FirstOrDefaultAsync(vm => vm.Id == id);
 
-        if (!exists)
+        if (vehicleModelToDelete is null)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found");
         }
 
-        var isDeleted = await repository.Delete(vehicleModelToDelete);
+        context.VehicleModels.Remove(vehicleModelToDelete);
+
+        var isDeleted = await context.SaveChangesAsync() > 0;
 
         return isDeleted ? Result.Success() : Result.Failure(HttpStatusCode.BadRequest, "The vehicle model was not deleted.");
     }

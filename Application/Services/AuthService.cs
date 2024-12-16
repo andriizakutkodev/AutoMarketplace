@@ -1,16 +1,19 @@
 ﻿namespace Application.Services;
 
+using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Data;
 using Infrastructure.Results;
+
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Service responsible for handling user authentication operations, including login and registration.
 /// </summary>
-public class AuthService(
-    IUserService usersService,
+public class AuthService(AppDbContext context,
     IPasswordHandlerService passwordHandler,
     IJwtService jwtService,
     IMapper mapper) : IAuthService
@@ -25,14 +28,12 @@ public class AuthService(
     /// </returns>
     public async Task<Result<UserInfoDto>> Login(LoginDto loginDto)
     {
-        var findUserResult = await usersService.GetByEmail(loginDto.Email);
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
 
-        if (!findUserResult.IsSuccess)
+        if (user is null)
         {
-            return Result<UserInfoDto>.Failure(findUserResult.StatusCode, findUserResult.Message);
+            return Result<UserInfoDto>.Failure(HttpStatusCode.NotFound, $"User with {loginDto.Email} email was not found.");
         }
-
-        var user = findUserResult.Data;
 
         var validatePasswordResult = passwordHandler.ValidatePassword(loginDto.Password, user.Password, user.Salt);
 
@@ -62,11 +63,13 @@ public class AuthService(
         user.Salt = salt;
         user.Image = default;
 
-        var createUserResult = await usersService.Create(user);
+        context.Users.Add(user);
 
-        if (!createUserResult.IsSuccess)
+        var isCreated = await context.SaveChangesAsync() > 0;
+
+        if (!isCreated)
         {
-            return Result<UserInfoDto>.Failure(createUserResult.StatusCode, $"Register failed. {createUserResult.Message}");
+            return Result<UserInfoDto>.Failure(HttpStatusCode.BadRequest, $"Register failed.");
         }
 
         return PrepareUserInfoResult(user);

@@ -4,8 +4,10 @@ using System.Net;
 using Application.DTOs;
 using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Data;
 using Infrastructure.Results;
-using Persistence.Interfaces;
+
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Service for handling image upload and removal operations for users and announcements.
@@ -13,11 +15,7 @@ using Persistence.Interfaces;
 /// <param name="fileStorageService">Service for interacting with file storage.</param>
 /// <param name="usersRepository">Repository for accessing user data.</param>
 /// <param name="announcementRepository">Repository for accessing announcement data.</param>
-public class ImageService(
-    IFileStorageService fileStorageService,
-    IUserRepository usersRepository,
-    IImageRepository imageRepository,
-    IAnnouncementRepository announcementRepository) : IImageService
+public class ImageService(AppDbContext context, IFileStorageService fileStorageService) : IImageService
 {
     /// <summary>
     /// Uploads an image for a specific user and updates the user's profile with the uploaded image.
@@ -34,7 +32,7 @@ public class ImageService(
 
         try
         {
-            var user = await usersRepository.GetByEmail(uploadImageForUserDto.UserEmail);
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == uploadImageForUserDto.UserEmail);
 
             if (user is null)
             {
@@ -50,19 +48,15 @@ public class ImageService(
 
             publicId = uploadResult.Data.PublicId;
 
-            var isImageCreated = await imageRepository.Create(uploadResult.Data);
-
-            if (!isImageCreated)
-            {
-                await fileStorageService.Remove(publicId);
-                return Result.Failure(HttpStatusCode.BadRequest, "Image was not uploaded.");
-            }
+            context.Images.Add(uploadResult.Data);
 
             user.Image = uploadResult.Data;
 
-            var isUpdated = await usersRepository.Update(user);
+            context.Users.Update(user);
 
-            if (!isUpdated)
+            var isSuccess = await context.SaveChangesAsync() > 0;
+
+            if (!isSuccess)
             {
                 await fileStorageService.Remove(uploadResult.Data.PublicId);
                 return Result.Failure(HttpStatusCode.BadRequest, "Image was not uploaded.");
@@ -99,7 +93,7 @@ public class ImageService(
 
         try
         {
-            user = await usersRepository.GetByEmail(userEmail);
+            user = await context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
 
             if (user is null)
             {
@@ -113,12 +107,14 @@ public class ImageService(
                 return Result.Failure(HttpStatusCode.BadRequest, "User does not have an image to delete.");
             }
 
-            isImageDeleted = await imageRepository.Delete(imageToDelete);
+            context.Images.Remove(imageToDelete);
             user.Image = default;
 
-            isUserUpdated = await usersRepository.Update(user);
+            context.Users.Update(user);
 
-            if (!isImageDeleted || !isUserUpdated)
+            var isSuccess = await context.SaveChangesAsync() > 0;
+
+            if (!isSuccess)
             {
                 return Result.Failure(HttpStatusCode.BadRequest, "Image was not removed.");
             }
@@ -129,9 +125,12 @@ public class ImageService(
             {
                 if (removeImageFromStorageResult.StatusCode != HttpStatusCode.NotFound)
                 {
-                    await imageRepository.Create(imageToDelete);
+                    context.Images.Add(imageToDelete);
+
                     user.Image = imageToDelete;
-                    await usersRepository.Update(user);
+                    context.Users.Update(user);
+
+                    await context.SaveChangesAsync();
 
                     return Result.Failure(removeImageFromStorageResult.StatusCode, removeImageFromStorageResult.Message);
                 }
@@ -147,13 +146,15 @@ public class ImageService(
         {
             if (isImageDeleted)
             {
-                await imageRepository.Create(imageToDelete);
+                context.Images.Add(imageToDelete);
+                await context.SaveChangesAsync();
             }
             else if (isImageDeleted && isUserUpdated)
             {
-                await imageRepository.Create(imageToDelete);
+                context.Images.Add(imageToDelete);
                 user.Image = imageToDelete;
-                await usersRepository.Update(user);
+                context.Users.Update(user);
+                await context.SaveChangesAsync();
             }
 
             throw;

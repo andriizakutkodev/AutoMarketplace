@@ -4,13 +4,14 @@ using System.Net;
 using System.Threading.Tasks;
 using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Data;
 using Infrastructure.Results;
-using Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Represents the service responsible for managing business logic related to <see cref="User"/> entities.
 /// </summary>
-public class UserService(IUserRepository repository) : IUserService
+public class UserService(AppDbContext context) : IUserService
 {
     /// <summary>
     /// Creates a new <see cref="User"/> entity.
@@ -22,12 +23,14 @@ public class UserService(IUserRepository repository) : IUserService
     /// </returns>
     public async Task<Result> Create(User user)
     {
-        if (await repository.IsUserWithEmailExists(user.Email))
+        if (await context.Users.AnyAsync(u => u.Email == user.Email))
         {
             return Result.Failure(HttpStatusCode.BadRequest, $"{user.Email} email has already taken. Please choose another one.");
         }
 
-        var isCreated = await repository.Create(user);
+        context.Users.Add(user);
+
+        var isCreated = await context.SaveChangesAsync() > 0;
 
         if (isCreated)
         {
@@ -48,11 +51,11 @@ public class UserService(IUserRepository repository) : IUserService
     /// </returns>
     public async Task<Result<User>> GetByEmail(string email)
     {
-        if (!await repository.IsUserWithEmailExists(email))
+        if (!await context.Users.AnyAsync(u => u.Email == email))
         {
             return Result<User>.Failure(HttpStatusCode.BadRequest, $"User with {email} email doesn't exist. Please register or try with different one.");
         }
 
-        return Result<User>.Success(await repository.GetByEmail(email));
+        return Result<User>.Success(await context.Users.FirstOrDefaultAsync(u => u.Email == email));
     }
 }

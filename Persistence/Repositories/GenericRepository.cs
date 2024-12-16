@@ -66,33 +66,27 @@ public abstract class GenericRepository<T> : IGenericRepository<T>
     /// Asynchronously creates a new entity in the database.
     /// </summary>
     /// <param name="entity">The entity to create.</param>
-    /// <returns>True if the entity was successfully created; otherwise, false.</returns>
-    public async Task<bool> Create(T entity)
+    public void Create(T entity)
     {
-        await _context.Set<T>().AddAsync(entity);
-        return await _context.SaveChangesAsync() > 0;
+        _context.Set<T>().AddAsync(entity);
     }
 
     /// <summary>
     /// Asynchronously updates an existing entity in the database.
     /// </summary>
     /// <param name="entity">The entity to update.</param>
-    /// <returns>True if the entity was successfully updated; otherwise, false.</returns>
-    public async Task<bool> Update(T entity)
+    public void Update(T entity)
     {
         _context.Set<T>().Update(entity);
-        return await _context.SaveChangesAsync() > 0;
     }
 
     /// <summary>
     /// Asynchronously deletes an existing entity from the database.
     /// </summary>
     /// <param name="entity">The entity to delete.</param>
-    /// <returns>True if the entity was successfully deleted; otherwise, false.</returns>
-    public async Task<bool> Delete(T entity)
+    public void Delete(T entity)
     {
         _context.Set<T>().Remove(entity);
-        return await _context.SaveChangesAsync() > 0;
     }
 
     /// <summary>

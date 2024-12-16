@@ -1,13 +1,10 @@
 ﻿namespace API.Extensions;
 
-using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using API.Validators;
 using Application.Interfaces;
 using Application.Services;
 using FluentValidation;
-using Persistence.Interfaces;
-using Persistence.Repositories;
 using Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +12,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using Application.Mappers;
 using CloudinaryDotNet;
+using Infrastructure.Data;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.
@@ -61,7 +59,6 @@ public static class ProgramExtensions
     {
         RegisterDbContext(services, configuration);
         RegisterServices(services);
-        RegisterRepositories(services);
         RegisterValidators(services);
         RegisterOptions(services, configuration);
         RegisterAuthentication(services, configuration);
@@ -93,14 +90,6 @@ public static class ProgramExtensions
         services.AddScoped<IVehicleModelService, VehicleModelService>();
         services.AddScoped<IFileStorageService, FileStorageService>();
         services.AddScoped<IImageService, ImageService>();
-    }
-
-    private static void RegisterRepositories(IServiceCollection services)
-    {
-        services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
-        services.AddScoped<IImageRepository, ImageRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)

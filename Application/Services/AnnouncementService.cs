@@ -7,18 +7,15 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Data;
 using Infrastructure.Results;
-using Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Implements the <see cref="IAnnouncementService"/> interface to handle business logic for managing posts.
 /// Provides functionality for creating, retrieving, updating, and deleting posts by interacting with the repository.
 /// </summary>
-public class AnnouncementService(
-    IAnnouncementRepository repository,
-    IVehicleModelRepository vehicleModelsRepository,
-    IUserRepository usersRepository,
-    IMapper mapper) : IAnnouncementService
+public class AnnouncementService(AppDbContext context, IMapper mapper) : IAnnouncementService
 {
     /// <summary>
     /// Retrieves all announcements and maps them to a collection of <see cref="AnnouncementDto"/>.
@@ -30,7 +27,7 @@ public class AnnouncementService(
     /// </returns>
     public async Task<Result<ICollection<AnnouncementDto>>> GetAll()
     {
-        var announcements = await repository.GetAll();
+        var announcements = await context.Announcements.ToListAsync();
 
         var announcementDtos = announcements.Select(mapper.Map<AnnouncementDto>).ToList();
 
@@ -48,9 +45,9 @@ public class AnnouncementService(
     /// </returns>
     public async Task<Result<AnnouncementDto>> GetById(Guid id)
     {
-        var (exists, announcement) = await repository.IsRecordExist(id);
+        var announcement = await context.Announcements.FirstOrDefaultAsync(a => a.Id == id);
 
-        if (!exists)
+        if (announcement is null)
         {
             return Result<AnnouncementDto>.Failure(HttpStatusCode.NotFound, "The announcement was not found");
         }
@@ -77,19 +74,21 @@ public class AnnouncementService(
     {
         var announcementToCreate = mapper.Map<Announcement>(createAnnouncementDto);
 
-        var (exists, vehicleModel) = await vehicleModelsRepository.IsRecordExist(createAnnouncementDto.VehicleModelId);
+        var vehicleModel = await context.VehicleModels.FirstOrDefaultAsync(vm => vm.Id == createAnnouncementDto.VehicleModelId);
 
-        if (!exists)
+        if (vehicleModel is null)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
-        var user = await usersRepository.GetByEmail(createAnnouncementDto.UserEmail) ?? throw new UnauthorizedAccessException($"User with {createAnnouncementDto.UserEmail} email doesn't exist in the sistem.");
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Email == createAnnouncementDto.UserEmail) ?? throw new UnauthorizedAccessException($"User with {createAnnouncementDto.UserEmail} email doesn't exist in the sistem.");
 
         announcementToCreate.Vehicle = vehicleModel;
         announcementToCreate.Owner = user;
 
-        var isCreated = await repository.Create(announcementToCreate);
+        context.Announcements.Add(announcementToCreate);
+
+        var isCreated = await context.SaveChangesAsync() > 0;
 
         return isCreated ? Result.Success() : Result.Failure(HttpStatusCode.BadRequest, "The announcement was not created.");
     }
@@ -106,23 +105,25 @@ public class AnnouncementService(
     /// </returns>
     public async Task<Result> Update(UpdateAnnouncementDto updateAnnouncementDto)
     {
-        var (announcementExists, announcementToUpdate) = await repository.IsRecordExist(updateAnnouncementDto.Id);
+        var announcementToUpdate = await context.Announcements.FirstOrDefaultAsync(a => a.Id == updateAnnouncementDto.Id);
 
-        if (!announcementExists)
+        if (announcementToUpdate is null)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The announcement was not found.");
         }
 
-        var (vehicleModelExists, _) = await vehicleModelsRepository.IsRecordExist(updateAnnouncementDto.Vehicle.Id);
+        var vehicleModel = await context.VehicleModels.FirstOrDefaultAsync(vm => vm.Id == updateAnnouncementDto.Vehicle.Id);
 
-        if (!vehicleModelExists)
+        if (vehicleModel is null)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The vehicle model was not found.");
         }
 
         mapper.Map(updateAnnouncementDto, announcementToUpdate);
 
-        var isUpdated = await repository.Update(announcementToUpdate);
+        context.Announcements.Update(announcementToUpdate);
+
+        var isUpdated = await context.SaveChangesAsync() > 0;
 
         return isUpdated ? Result.Success() : Result.Failure(HttpStatusCode.BadRequest, "The announcement was not updated.");
     }
@@ -139,14 +140,16 @@ public class AnnouncementService(
     /// </returns>
     public async Task<Result> Delete(Guid id)
     {
-        var (exists, announcementToDelete) = await repository.IsRecordExist(id);
+        var announcementToDelete = await context.Announcements.FirstOrDefaultAsync(a => a.Id == id);
 
-        if (!exists)
+        if (announcementToDelete is null)
         {
             return Result.Failure(HttpStatusCode.NotFound, "The announcement was not found.");
         }
 
-        var isDeleted = await repository.Delete(announcementToDelete);
+        context.Announcements.Remove(announcementToDelete);
+
+        var isDeleted = await context.SaveChangesAsync() > 0;
 
         return isDeleted ? Result.Success() : Result.Failure(HttpStatusCode.BadRequest, "The announcement was not deleted.");
     }
