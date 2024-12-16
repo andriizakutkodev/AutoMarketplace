@@ -20,7 +20,7 @@ public interface IFileStorageService
     /// <summary>
     /// Deletes an image from the server using its URL.
     /// </summary>
-    /// <param name="imgUrl">The URL of the image to be deleted.</param>
+    /// <param name="publicId">The piblic identifier of the image to be deleted.</param>
     /// <returns>A task representing the asynchronous operation, containing the result of the deletion.</returns>
-    Task<Result> Remove(string imgUrl);
+    Task<Result> Remove(string publicId);
 }

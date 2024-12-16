@@ -92,6 +92,7 @@ public static class ProgramExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IVehicleModelService, VehicleModelService>();
         services.AddScoped<IFileStorageService, FileStorageService>();
+        services.AddScoped<IImageService, ImageService>();
     }
 
     private static void RegisterRepositories(IServiceCollection services)
@@ -99,6 +100,7 @@ public static class ProgramExtensions
         services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
+        services.AddScoped<IImageRepository, ImageRepository>();
     }
 
     private static void RegisterValidators(IServiceCollection services)

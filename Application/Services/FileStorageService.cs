@@ -74,6 +74,11 @@ public class FileStorageService : IFileStorageService
             return Result.Success();
         }
 
+        if (result.StatusCode == HttpStatusCode.OK && result.Result == "not found")
+        {
+            return Result.Failure(HttpStatusCode.NotFound, $"Failed to delete image: {result.Error?.Message}");
+        }
+
         return Result.Failure(HttpStatusCode.BadRequest, $"Failed to delete image: {result.Error?.Message}");
     }
 }
