@@ -26,9 +26,4 @@ public class VehicleModel : BaseEntity
     /// Gets or sets the engine type of the vehicle.
     /// </summary>
     public virtual EngineType EngineType { get; set; }
-
-    /// <summary>
-    /// Gets or sets the release date of the vehicle (e.g., production date).
-    /// </summary>
-    public DateTimeOffset ReleaseDate { get; set; }
 }

@@ -26,6 +26,11 @@ public class CreateAnnouncementDto
     public short Mileage { get; set; }
 
     /// <summary>
+    /// Gets or sets the release date of the vehicle (e.g., production date).
+    /// </summary>
+    public DateTimeOffset ReleaseDate { get; set; }
+
+    /// <summary>
     /// Gets or sets the vehicle model identifier.
     /// </summary>
     public Guid VehicleModelId { get; set; }

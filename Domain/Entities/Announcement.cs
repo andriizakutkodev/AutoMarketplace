@@ -38,6 +38,11 @@ public class Announcement : BaseEntity
     public bool IsVerified { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the release date of the vehicle (e.g., production date).
+    /// </summary>
+    public DateTimeOffset ReleaseDate { get; set; }
+
+    /// <summary>
     /// Gets or sets the status of the announcement (e.g. pending, published, canceled).
     /// </summary>
     public AnnouncementStatus Status { get; set; } = AnnouncementStatus.Pending;

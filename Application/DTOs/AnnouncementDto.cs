@@ -41,6 +41,11 @@ public class AnnouncementDto
     public bool IsVerified { get; set; }
 
     /// <summary>
+    /// Gets or sets the release date of the vehicle (e.g., production date).
+    /// </summary>
+    public DateTimeOffset ReleaseDate { get; set; }
+
+    /// <summary>
     /// Gets or sets the status of the announcement (e.g. pending, published, canceled).
     /// </summary>
     public string Status { get; set; }

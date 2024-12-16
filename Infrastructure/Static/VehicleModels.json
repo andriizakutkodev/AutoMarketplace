@@ -1,0 +1,245 @@
+[
+  // Tayota
+  {
+    "Name": "Corolla",
+    "EngineCapacity": 1800,
+    "Make": "Toyota",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Camry",
+    "EngineCapacity": 2500,
+    "Make": "Toyota",
+    "EngineType": "Hybrid"
+  },
+  {
+    "Name": "Prius",
+    "EngineCapacity": 1800,
+    "Make": "Toyota",
+    "EngineType": "Hybrid"
+  },
+  {
+    "Name": "Land Cruiser",
+    "EngineCapacity": 4500,
+    "Make": "Toyota",
+    "EngineType": "Diesel"
+  },
+  {
+    "Name": "Hilux",
+    "EngineCapacity": 2800,
+    "Make": "Toyota",
+    "EngineType": "Diesel"
+  },
+  {
+    "Name": "RAV4",
+    "EngineCapacity": 2000,
+    "Make": "Toyota",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Yaris",
+    "EngineCapacity": 1500,
+    "Make": "Toyota",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Avalon",
+    "EngineCapacity": 3500,
+    "Make": "Toyota",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Fortuner",
+    "EngineCapacity": 2800,
+    "Make": "Toyota",
+    "EngineType": "Diesel"
+  },
+  {
+    "Name": "Supra",
+    "EngineCapacity": 3000,
+    "Make": "Toyota",
+    "EngineType": "Petrol"
+  },
+  // Ford
+  {
+    "Name": "F-150",
+    "EngineCapacity": 3500,
+    "Make": "Ford",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Mustang",
+    "EngineCapacity": 5000,
+    "Make": "Ford",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Explorer",
+    "EngineCapacity": 3000,
+    "Make": "Ford",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Focus",
+    "EngineCapacity": 2000,
+    "Make": "Ford",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Escape",
+    "EngineCapacity": 2500,
+    "Make": "Ford",
+    "EngineType": "Hybrid"
+  {
+    "Name": "Edge",
+    "EngineCapacity": 2000,
+    "Make": "Ford",
+    "EngineType": "Diesel"
+  },
+  {
+    "Name": "Expedition",
+    "EngineCapacity": 3500,
+    "Make": "Ford",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Ranger",
+    "EngineCapacity": 3200,
+    "Make": "Ford",
+    "EngineType": "Diesel"
+  },
+  {
+    "Name": "Bronco",
+    "EngineCapacity": 2700,
+    "Make": "Ford",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Maverick",
+    "EngineCapacity": 2000,
+    "Make": "Ford",
+    "EngineType": "Hybrid"
+  },
+  // Chevrolet
+  {
+    "Name": "Silverado",
+    "EngineCapacity": 5300,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Equinox",
+    "EngineCapacity": 1500,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Malibu",
+    "EngineCapacity": 1600,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Tahoe",
+    "EngineCapacity": 5300,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Suburban",
+    "EngineCapacity": 6200,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Camaro",
+    "EngineCapacity": 6200,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Traverse",
+    "EngineCapacity": 3600,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Blazer",
+    "EngineCapacity": 3000,
+    "Make": "Chevrolet",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Colorado",
+    "EngineCapacity": 2800,
+    "Make": "Chevrolet",
+    "EngineType": "Diesel"
+  },
+  {
+    "Name": "Bolt EV",
+    "EngineCapacity": 0,
+    "Make": "Chevrolet",
+    "EngineType": "Electric"
+  },
+  // Honda
+  {
+    "Name": "Civic",
+    "EngineCapacity": 2000,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Accord",
+    "EngineCapacity": 1500,
+    "Make": "Honda",
+    "EngineType": "Hybrid"
+  },
+  {
+    "Name": "CR-V",
+    "EngineCapacity": 1500,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Pilot",
+    "EngineCapacity": 3500,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "HR-V",
+    "EngineCapacity": 1500,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Fit",
+    "EngineCapacity": 1300,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Odyssey",
+    "EngineCapacity": 3500,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Insight",
+    "EngineCapacity": 1500,
+    "Make": "Honda",
+    "EngineType": "Hybrid"
+  },
+  {
+    "Name": "Ridgeline",
+    "EngineCapacity": 3500,
+    "Make": "Honda",
+    "EngineType": "Petrol"
+  },
+  {
+    "Name": "Clarity",
+    "EngineCapacity": 0,
+    "Make": "Honda",
+    "EngineType": "Electric"
+  }
+]
