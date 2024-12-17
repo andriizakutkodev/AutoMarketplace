@@ -1,4 +1,8 @@
 <div class="scrollable-container">
   <app-header></app-header>
-  <router-outlet />
+  @if (isRouteActive) {
+    <router-outlet />
+  } @else {
+    <app-search></app-search>
+  }
 </div>

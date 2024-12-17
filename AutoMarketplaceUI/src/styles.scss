@@ -50,3 +50,50 @@ body {
     background-color: unset;
   }
 }
+
+// Mat tab styles.
+.mat-mdc-tab-group {
+  .mat-mdc-tab-header {
+    .mat-mdc-tab-label-container {
+      border: none;
+
+      .mat-mdc-tab-list {
+        .mat-mdc-tab-labels {
+          .mat-mdc-tab {
+            .mdc-tab__content {
+              .mdc-tab__text-label {
+                fa-icon {
+                  font-size: 20px;
+                  color: white;
+                }
+              }
+            }
+
+            &.mdc-tab--active {
+              background-color: white;
+
+              .mdc-tab__content {
+                .mdc-tab__text-label {
+                  fa-icon {
+                    color: #440000;
+                  }
+                }
+              }
+            }
+
+            .mdc-tab-indicator .mdc-tab-indicator__content {
+              width: 80%;
+              border: 2px solid #440000;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mat-mdc-tab-body-wrapper {
+    padding: 10px;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+  }
+}
