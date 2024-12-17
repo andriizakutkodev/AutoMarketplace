@@ -21,10 +21,13 @@ public class CreateVehicleModelDtoValidator : AbstractValidator<CreateVehicleMod
         RuleFor(x => x.EngineCapacity)
             .NotEmpty().NotNull().WithMessage("The engine capacity should not be null or empty");
         RuleFor(x => x.Make)
-            .NotEmpty().NotNull().WithMessage("The vehicle make id should not be null or empty.")
+            .NotEmpty().NotNull().WithMessage("The vehicle make should not be null or empty.")
+            .IsInEnum();
+        RuleFor(x => x.VehicleType)
+            .NotEmpty().NotNull().WithMessage("The vehicle type should not be null or empty.")
             .IsInEnum();
         RuleFor(x => x.EngineType)
-            .NotEmpty().NotNull().WithMessage("The engine type id should not be null or empty.")
+            .NotEmpty().NotNull().WithMessage("The engine type should not be null or empty.")
             .IsInEnum();
     }
 }

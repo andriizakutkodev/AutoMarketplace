@@ -26,6 +26,9 @@ public class UpdateVehicleModelDtoValidator : AbstractValidator<UpdateVehicleMod
             .NotEmpty().NotNull().WithMessage("The make name should not be null or empty.")
             .IsInEnum();
         RuleFor(x => x.EngineType)
+            .NotEmpty().NotNull().WithMessage("The vehicle type should not be null or empty.")
+            .IsInEnum();
+        RuleFor(x => x.EngineType)
             .NotEmpty().NotNull().WithMessage("The engine type name should not be null or empty.")
             .IsInEnum();
     }

@@ -28,6 +28,11 @@ public class VehicleModelDto
     /// <summary>
     /// Gets or sets the engine type of the vehicle.
     /// </summary>
+    public string VehicleType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the engine type of the vehicle.
+    /// </summary>
     public string EngineType { get; set; }
 
     /// <summary>

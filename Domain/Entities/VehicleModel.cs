@@ -23,6 +23,11 @@ public class VehicleModel : BaseEntity
     public virtual VehicleMake Make { get; set; }
 
     /// <summary>
+    /// Gets or sets the vehicle type of the vehicle.
+    /// </summary>
+    public virtual VehicleType VehicleType { get; set; }
+
+    /// <summary>
     /// Gets or sets the engine type of the vehicle.
     /// </summary>
     public virtual EngineType EngineType { get; set; }

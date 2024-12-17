@@ -30,6 +30,11 @@ public class UpdateVehicleModelDto
     /// <summary>
     /// Gets or sets the engine type of the vehicle.
     /// </summary>
+    public VehicleType VehicleType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the engine type of the vehicle.
+    /// </summary>
     public EngineType EngineType { get; set; }
 
     /// <summary>
