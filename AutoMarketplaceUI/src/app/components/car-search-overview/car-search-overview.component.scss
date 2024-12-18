@@ -1,0 +1,94 @@
+.car-search-overview-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+
+  .last-search, .cars-in-demand {
+    flex: 1;
+
+    .mat-mdc-card {
+      border-radius: 5px;
+      background-color: white;
+
+      .mat-mdc-card-header {
+        font-size: large;
+        padding: 16px;
+      }
+
+      ::ng-deep .mat-mdc-chip {
+        padding: 15px;
+        cursor: pointer;
+      }
+
+      ::ng-deep .mdc-evolution-chip-set__chips {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      ::ng-deep .mat-mdc-chip-action-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+
+        fa-icon {
+          font-size: 20px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .car-search-overview-container {
+    flex-direction: column;
+    gap: 10px;
+
+    .last-search, .cars-in-demand {
+      flex: none;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .car-search-overview-container {
+    .last-search, .cars-in-demand {
+      .mat-mdc-card-header {
+        font-size: medium;
+        padding: 12px;
+      }
+
+      ::ng-deep .mat-mdc-chip {
+        padding: 10px;
+      }
+
+      ::ng-deep .mat-mdc-chip-action-label fa-icon {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .car-search-overview-container {
+    .last-search, .cars-in-demand {
+      .mat-mdc-card-header {
+        font-size: small;
+        padding: 8px;
+      }
+
+      ::ng-deep .mat-mdc-chip {
+        padding: 8px;
+      }
+
+      ::ng-deep .mat-mdc-chip-action-label fa-icon {
+        font-size: 14px;
+      }
+    }
+  }
+}
