@@ -4,11 +4,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-
 using Application.Consts;
 using Application.Interfaces;
-using Application.Options;
 using Domain.Entities;
+using Infrastructure.Options;
 using Infrastructure.Results;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

@@ -1,4 +1,4 @@
-﻿namespace Application.Options;
+﻿namespace Infrastructure.Options;
 
 /// <summary>
 /// Represents the configuration options for generating JSON Web Tokens (JWT).

@@ -1,11 +1,9 @@
 ﻿namespace API.Extensions;
 
 using Microsoft.EntityFrameworkCore;
-using API.Validators;
 using Application.Interfaces;
 using Application.Services;
 using FluentValidation;
-using Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -13,6 +11,8 @@ using Microsoft.OpenApi.Models;
 using Application.Mappers;
 using CloudinaryDotNet;
 using Infrastructure.Data;
+using Infrastructure.Options;
+using Application.Validators;
 
 /// <summary>
 /// Provides extension methods for registering dependencies into the <see cref="IServiceCollection"/>.

@@ -1,7 +1,8 @@
-﻿namespace API.Validators;
+﻿namespace Application.Validators;
 
 using Application.DTOs;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
 /// <summary>
 /// Validator for the UploadImageForUserDto class.

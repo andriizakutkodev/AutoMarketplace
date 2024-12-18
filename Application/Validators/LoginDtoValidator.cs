@@ -1,4 +1,4 @@
-﻿namespace API.Validators;
+﻿namespace Application.Validators;
 
 using Application.DTOs;
 using FluentValidation;

@@ -1,4 +1,4 @@
-﻿namespace Application.Options;
+﻿namespace Infrastructure.Options;
 
 /// <summary>
 /// Represents configuration options for connecting to the Cloudinary service.
