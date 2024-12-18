@@ -1,0 +1,77 @@
+<div class="search-form-container">
+  <form class="form" [formGroup]="searchForm">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="make" (selectionChange)="onMakeFormFieldValueChange()">
+          <mat-option [value]="''">Make</mat-option>
+          @for (vehicleMake of vehicleMakes; track vehicleMake) {
+            <mat-option [value]="vehicleMake">{{ vehicleMake }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="model">
+          <mat-option [value]="''">Model</mat-option>
+          @for (vehicleModel of vehicleModels; track vehicleModel) {
+            <mat-option [value]="vehicleModel">{{ vehicleModel }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="priceUpTo">
+          <mat-option [value]="0">Price up to (€)</mat-option>
+          @for (priceUpTo of priceUpToList; track priceUpTo) {
+            <mat-option [value]="priceUpTo.value">{{ priceUpTo.key }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      @switch (vehicleType) {
+        @case (0) {
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="firstRegistrationFrom">
+              <mat-option [value]="0">First registration from</mat-option>
+              @for (firstRegistrationFrom of firstRegistrationFromList; track firstRegistrationFrom) {
+                <mat-option [value]="firstRegistrationFrom.value">{{ firstRegistrationFrom.key }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        @case (1) {
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="bodyType">
+              <mat-option [value]="''">Body type</mat-option>
+              @for (motorcycleBodyType of motorcycleBodyTypeList; track motorcycleBodyType) {
+                <mat-option [value]="motorcycleBodyType.value">{{ motorcycleBodyType.key }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        @case (2) {
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="numberOfSeats">
+              <mat-option [value]="0">Number of seats</mat-option>
+              @for (vanShuttleNumberOfSeats of vanShuttleNumberOfSeatsList; track vanShuttleNumberOfSeats) {
+                <mat-option [value]="vanShuttleNumberOfSeats.value">{{ vanShuttleNumberOfSeats.key }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+      }
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="country">
+          <mat-option [value]="''">Europe</mat-option>
+          @for (country of countries; track country) {
+            <mat-option [value]="country.value">{{ country.key }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <div class="results-button">
+        <button mat-button class="custom-button">results</button>
+      </div>
+    </div>
+  </form>
+</div>
